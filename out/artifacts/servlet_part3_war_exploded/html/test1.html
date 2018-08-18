@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test1</title>
+</head>
+<body>
+    <!--http://127.0.0.1:8080/servlet/html/test1.html-->
+    <!--http://127.0.0.1:8080/servlet/html/reqparam.servlet-->
+    <!--相对路径:相对当前请求/最近的一次请求-->
+    <!--a请求方式:GET-->
+    <a href="../reqparam.servlet">超链接GET方式发送请求</a>
+    <!--表单控件中的值 name的值作为key,value的值作为value ?key=value&key=value-->
+    <form action="../reqparam.servlet" method="get">
+        <input type="hidden" name="sid" value="10086"><br>
+        <input type="text" name="username" value="张三"><br>
+        <input type="password" name="password" value="123456"><br>
+
+        <input type="radio" name="time" value="AM">
+        <input type="radio" name="time" value="PM" checked="checked"><br>
+
+        <input type="checkbox" name="hobby" value="篮球">
+        <input type="checkbox" name="hobby" value="网球">
+        <input type="checkbox" name="hobby" value="台球"><br>
+
+        <select name="address">
+            <option value="10">小店</option>
+            <option value="11" selected>尖草坪</option>
+        </select><br>
+
+        <textarea rows="3" cols="10" name="self">自我介绍</textarea><br>
+
+        <input type="submit" value="提交GET方式">
+
+    </form>
+
+    <hr>
+    <form action="../reqparam.servlet" method="post">
+        <input type="hidden" name="sid" value="10086"><br>
+        <input type="text" name="username" value="张三"><br>
+        <input type="password" name="password" value="123456"><br>
+
+        <input type="radio" name="time" value="AM">
+        <input type="radio" name="time" value="PM" checked="checked"><br>
+
+        <input type="checkbox" name="hobby" value="篮球">
+        <input type="checkbox" name="hobby" value="网球">
+        <input type="checkbox" name="hobby" value="台球"><br>
+
+        <select name="address">
+            <option value="10">小店</option>
+            <option value="11" selected>尖草坪</option>
+        </select><br>
+
+        <textarea rows="3" cols="10" name="self">自我介绍</textarea><br>
+
+        <input type="submit" value="提交POST方式">
+
+    </form>
+
+
+</body>
+</html>
