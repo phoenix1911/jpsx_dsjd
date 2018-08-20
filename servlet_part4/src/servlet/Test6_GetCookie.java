@@ -13,6 +13,7 @@ import java.net.URLDecoder;
 public class Test6_GetCookie extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/plain;charset=utf-8");
         HttpSession session = req.getSession();
 
         PrintWriter writer = resp.getWriter();
