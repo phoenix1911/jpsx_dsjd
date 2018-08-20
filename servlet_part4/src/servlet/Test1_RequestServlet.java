@@ -29,8 +29,12 @@ public class Test1_RequestServlet extends HttpServlet {
             //替换参数
         req.setAttribute("name","tim");
             //获取参数
-
         System.out.println("Test1 name:"+req.getAttribute("name"));
+
+//        //服务器内部跳转
+//        req.getRequestDispatcher("/GP.servlet").forward(req,resp);
+//        客户端重定向:相当于重新发送一次请求
+        resp.sendRedirect("/servlet_part4/GP.servlet");
 
     }
 
