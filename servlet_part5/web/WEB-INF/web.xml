@@ -24,35 +24,36 @@
         <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
-    <filter>
-        <filter-name>filter3</filter-name>
-        <filter-class>filter.Test3_logFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>filter3</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>filter4</filter-name>
-        <filter-class>filter.Test4_encondingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>utf-8</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>filter4</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    <!--同时打开3,4,5 访问/html/login.html-->
+    <!--<filter>-->
+        <!--<filter-name>filter3</filter-name>-->
+        <!--<filter-class>filter.Test3_logFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>filter3</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+    <!--<filter>-->
+        <!--<filter-name>filter4</filter-name>-->
+        <!--<filter-class>filter.Test4_encondingFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>encoding</param-name>-->
+            <!--<param-value>utf-8</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>filter4</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
 
-    <filter>
-        <filter-name>filter5</filter-name>
-        <filter-class>filter.Test5_LoginFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>filter5</filter-name>
-        <url-pattern>/user/*</url-pattern>
-    </filter-mapping>
+    <!--<filter>-->
+        <!--<filter-name>filter5</filter-name>-->
+        <!--<filter-class>filter.Test5_LoginFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>filter5</filter-name>-->
+        <!--<url-pattern>/user/*</url-pattern>-->
+    <!--</filter-mapping>-->
 
 
     <servlet>
@@ -79,4 +80,53 @@
         <servlet-name>AddShopCarServlet</servlet-name>
         <url-pattern>/user/addshop.servlet</url-pattern>
     </servlet-mapping>
+
+    <!--监听器-->
+    <listener>
+        <listener-class>lilstener.Test1_RequestListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>ListernerTest</servlet-name>
+        <servlet-class>servlet.ListernerTest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListernerTest</servlet-name>
+        <url-pattern>/LT.servlet</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>lilstener.Test2_SessionLister</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>Test_SessionListener</servlet-name>
+        <servlet-class>servlet.Test_SessionListener</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Test_SessionListener</servlet-name>
+        <url-pattern>/TSL.servlet</url-pattern>
+    </servlet-mapping>
+
+
+    <listener>
+        <listener-class>lilstener.Test3_ApplicationListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>Test_ApplicationListener</servlet-name>
+        <servlet-class>servlet.Test_ApplicationListener</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Test_ApplicationListener</servlet-name>
+        <url-pattern>/TAL.servlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>UserWithListener</servlet-name>
+        <servlet-class>servlet.TestUserWithListener</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserWithListener</servlet-name>
+        <url-pattern>/UWL.servlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
