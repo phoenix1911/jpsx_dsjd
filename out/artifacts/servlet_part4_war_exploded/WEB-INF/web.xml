@@ -75,6 +75,14 @@
         <servlet-name>Test6_GetCookie</servlet-name>
         <url-pattern>/GC.servlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Test7_CookieUrl</servlet-name>
+        <servlet-class>servlet.Test7_CookieUrl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Test7_CookieUrl</servlet-name>
+        <url-pattern>/UC.servlet</url-pattern>
+    </servlet-mapping>
 
     <!--qpplication初始化参数-->
     <context-param>
