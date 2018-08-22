@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/servlet_part3/servlet_part3.iml" filepath="$PROJECT_DIR$/servlet_part3/servlet_part3.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet_part4/servlet_part4.iml" filepath="$PROJECT_DIR$/servlet_part4/servlet_part4.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet_part5/servlet_part5.iml" filepath="$PROJECT_DIR$/servlet_part5/servlet_part5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/servlet_part6_IO/servlet_part6_IO.iml" filepath="$PROJECT_DIR$/servlet_part6_IO/servlet_part6_IO.iml" />
     </modules>
   </component>
 </project>
