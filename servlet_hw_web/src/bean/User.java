@@ -1,9 +1,13 @@
 package bean;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+
 /**
  * Created by Tjl on 2018/8/18 17:35.
  */
-public class User {
+public class User implements HttpSessionBindingListener {
     private int id;
     private String username;
     private String password;
@@ -81,5 +85,26 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public void valueBound(HttpSessionBindingEvent event) {
+        ServletContext servletContext = event.getSession().getServletContext();
+        Integer count = (Integer) servletContext.getAttribute("count");
+        if (count == null) {
+            count =0;
+        }
+        count++;
+        servletContext.setAttribute("count",count);
+        System.out.println(username+"用户登陆,当前在线人数有"+count+"人");
+
+    }
+
+    @Override
+    public void valueUnbound(HttpSessionBindingEvent event) {
+        ServletContext servletContext = event.getSession().getServletContext();
+        Integer count = (Integer) servletContext.getAttribute("count");
+        count--;
+        servletContext.setAttribute("count",count);
     }
 }

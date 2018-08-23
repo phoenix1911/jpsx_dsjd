@@ -1,12 +1,10 @@
 package servlet;
 
+import bean.User;
 import service.UserService;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 /**
@@ -23,11 +21,11 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String isAuto = req.getParameter("isAuto");
-        System.out.println(username);
-        System.out.println(password);
+//        System.out.println(username);
+//        System.out.println(password);
         UserService userService = new UserService();
         Boolean login = userService.login(username, password);
-        System.out.println(login);
+//        System.out.println(login);
         if (login) {
             //判断复选框是否被选中
             if (isAuto != null) {
@@ -39,8 +37,12 @@ public class LoginServlet extends HttpServlet {
                 resp.addCookie(ckPassword);
 
             }
+            //根据username 获取User对象
+            User user = userService.showByUsername(username);
+            HttpSession session = req.getSession();
+            session.setAttribute("user",user);
             req.getRequestDispatcher("success.html").forward(req,resp);
-            System.out.println("执行了?");
+//            System.out.println("执行了?");
         }
 
     }

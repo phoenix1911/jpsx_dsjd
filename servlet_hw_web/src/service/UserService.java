@@ -43,4 +43,14 @@ public class UserService {
 //        System.out.println(login);
 
     }
+
+    /**
+     * 根据username获取User对象
+     * @param username
+     * @return
+     */
+    public User showByUsername(String username) {
+
+        return userDao.selectByUsername(username);
+    }
 }

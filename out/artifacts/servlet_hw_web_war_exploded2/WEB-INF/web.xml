@@ -27,4 +27,15 @@
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/index.servlet</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>Filter.loginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <!--<listener>-->
+        <!--<listener-class>listener.LoginListener</listener-class>-->
+    <!--</listener>-->
 </web-app>
