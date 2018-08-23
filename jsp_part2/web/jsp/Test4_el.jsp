@@ -97,8 +97,5 @@
     6 : ${map["s3"]}<br>
     7 : ${map.s3}<br>
 
-
-
-
 </body>
 </html>
