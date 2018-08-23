@@ -11,4 +11,12 @@
         <servlet-name>Test4_Register</servlet-name>
         <url-pattern>/register.servlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Test5_JSTL</servlet-name>
+        <servlet-class>servlet.Test5_JSTL</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Test5_JSTL</servlet-name>
+        <url-pattern>/Test5.servlet</url-pattern>
+    </servlet-mapping>
 </web-app>
