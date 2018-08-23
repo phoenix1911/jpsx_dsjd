@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base href="http://localhost:8888/zb_servlet/"><!--基路径  -->
+<meta charset="UTF-8">
+<!--引入样式表  相对路径:基于浏览器地址栏--><!-- 访问方式的不同，有时 -->
+ <!-- <link type="text/css" rel="stylesheet" href="css/style.css"> -->
+<!--1.绝对路径  -->
+<!-- <link type="text/css" rel="stylesheet" href="/zb_servlet/html/css/style.css"> -->
+<!--2.  -->
+<link type="text/css" rel="stylesheet" href="html/css/style.css">
+<title>day3_1</title>
+</head>
+<body>
+	<!--http://localhost:8888/zb_servlet/html/day3_1.html  -->
+	<!--http://localhost:8888/zb_servlet/reqparam.servlet  -->
+	<!--相对路径:相对当前请求/最近的一次请求  -->
+	<!--a请求方式:GET  -->
+	<a href="http://localhost:9000/zb_servlet/reqparam.servlet?sid=10081&username=李四&password=456
+				&time=AM&hobby=篮球&hobby=网球&address=10&self=自我介绍的信息">超链接GET方式发送请求</a>
+	<!--表单控件中的值   name的值作为key,value的值作为value  ?key=value&key=value  -->
+	<hr>
+	<form action="../reqparam.servlet" method="GET">
+		<input type="hidden" name="sid" value="10080"><br/>
+		<input type="text" name="username" value="张三"><br/>
+		<input type="password" name="password" value="123456"><br/>
+		<input type="radio" name="time" value="AM">
+		<input type="radio" name="time" value="PM" checked="checked"><br/>
+		<input type="checkbox" name="hobby" value="篮球">
+		<input type="checkbox" name="hobby" value="网球">
+		<input type="checkbox" name="hobby" value="橄榄球"><br/>
+		<select name="address">
+			<option value="10">小店</option>
+			<option value="11" selected="selected">尖草坪</option>
+		</select><br/>
+		<textarea rows="3" cols="10" name="self">自我介绍...</textarea><br/>
+		<input type="submit" value="提交GET方式">
+	</form>
+	<hr>
+	<form action="http://localhost:9000/zb_servlet/reqparam.servlet" method="POST">
+		<input type="hidden" name="sid" value="10080"><br/>
+		<input type="text" name="username" value="张三"><br/>
+		<input type="password" name="password" value="123456"><br/>
+		<input type="radio" name="time" value="AM">
+		<input type="radio" name="time" value="PM" checked="checked"><br/>
+		<input type="checkbox" name="hobby" value="篮球">
+		<input type="checkbox" name="hobby" value="网球">
+		<input type="checkbox" name="hobby" value="橄榄球"><br/>
+		<select name="address">
+			<option value="10">小店</option>
+			<option value="11" selected="selected">尖草坪</option>
+		</select><br/>
+		<textarea rows="3" cols="10" name="self">自我介绍...</textarea><br/>
+		<input type="submit" value="提交POST方式">
+	</form>
+	
+	
+	
+	
+</body>
+</html>
