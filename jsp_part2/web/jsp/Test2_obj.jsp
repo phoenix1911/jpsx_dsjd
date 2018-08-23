@@ -1,0 +1,33 @@
+<%--
+  User: TJL Date: 2018/8/23  Time: 8:38
+--%>
+<%@ page isErrorPage="true" contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>jsp九大内置对象</title>
+</head>
+<body>
+    <h1>九大内置对象</h1>
+    <!--只要成功访问一个jsp页面,就会生成session-->
+    <%=request%><br>
+    <%=session%><br>
+    <%=application%><br>
+    <%=response%><br>
+    <%=out%><br>
+    <%=config%><br>
+    <%=page%><br>
+    <%=pageContext%><br>
+    <%=exception%><br>
+    <h1>四个范围对象</h1>
+    <%--<%--%>
+        <%--pageContext.setAttribute("name","tom1");--%>
+        <%--request.setAttribute("name","tom2");--%>
+        <%--session.setAttribute("name","tom3");--%>
+        <%--application.setAttribute("name","tom4");--%>
+    <%--%>--%>
+    <%=pageContext.getAttribute("name")%>
+    <%=request.getAttribute("name")%>
+    <%=session.getAttribute("name")%>
+    <%=application.getAttribute("name")%>
+</body>
+</html>
