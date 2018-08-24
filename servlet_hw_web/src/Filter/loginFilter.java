@@ -43,7 +43,7 @@ public class loginFilter implements Filter {
                 return;
             }
             //如果不是,则跳转到登陆页面
-            resp.sendRedirect("login.html");
+            resp.sendRedirect("index.servlet");
         }
         chain.doFilter(request, response);
     }
