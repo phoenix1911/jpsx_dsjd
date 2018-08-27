@@ -7,6 +7,9 @@ public class Student {
 	private String name;
 	private String email;
 	private Date dob;
+
+	//类型处理器
+	private PhoneNumber phone;
 	
 	public Student(){
 	}
@@ -17,32 +20,63 @@ public class Student {
 		this.email = email;
 		this.dob = dob;
 	}
+
+	@Override
+	public String toString() {
+		return "Student{" +
+				"studId=" + studId +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", dob=" + dob +
+				", phone=" + phone +
+				'}';
+	}
+
 	public int getStudId() {
 		return studId;
 	}
+
 	public void setStudId(int studId) {
 		this.studId = studId;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public Date getDob() {
 		return dob;
 	}
+
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
-	@Override
-	public String toString() {
-		return "Student [studId=" + studId + ", name=" + name + ", email=" + email + ", dob=" + dob + "]";
+
+	public PhoneNumber getPhone() {
+		return phone;
+	}
+
+	public void setPhone(PhoneNumber phone) {
+		this.phone = phone;
+	}
+
+	public Student(int studId, String name, String email, Date dob, PhoneNumber phone) {
+		this.studId = studId;
+		this.name = name;
+		this.email = email;
+		this.dob = dob;
+		this.phone = phone;
 	}
 }

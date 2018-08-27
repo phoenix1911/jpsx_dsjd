@@ -17,6 +17,6 @@ public interface StudentMapper {
     Student findStudentById(Integer id);
     //void updateStudent(Student student);
     //void deleteStudentById(Integer id);
-    //void insertStudentWithPhone(Student student);
-    //Student findStudentWithPhoneById(Integer id);
+    void insertStudentWithPhone(Student student);
+    Student findStudentWithPhoneById(Integer id);
 }
