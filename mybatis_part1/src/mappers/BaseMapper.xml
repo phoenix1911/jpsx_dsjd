@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.briup.mappers.StudentMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="mappers.BaseMapper">
+    <!--demo1:添加一个基础学生信息-->
+    <insert id="insertStudent" parameterType="Student">
+        insert into STUDENTS(STUD_ID,NAME,EMAIL,DOB,PHONE)
+        values(#{studId},#{name},#{email},#{dob},#{phone})
+    </insert>
+
+    <!--demo2:添加一个学生对象,主键自增-->
+    <insert id="insertStudent_autoId" parameterType="Student">
+        <selectKey keyProperty="studId" resultType="int" order="BEFORE">
+            select MY_SEQ.nextval from dual
+        </selectKey>
+        insert into STUDENTS(STUD_ID,NAME,EMAIL,DOB,PHONE)
+        values(#{studId},#{name},#{email},#{dob},#{phone})
+    </insert>
+
+    <!--demo3:添加一个学生对象,主键自增,直接使用序列的下一个值-->
+    <insert id="insertStudent_autoId2">
+        insert into STUDENTS(STUD_ID,NAME,EMAIL,DOB,PHONE)
+        values(MY_SEQ.nextval,#{name},#{email},#{dob},#{phone})
+    </insert>
+
+    <!--demo4:更新一个学生信息-->
+    <update id="updateStudent" parameterType="Student">
+        update STUDENTS set name =#{name},EMAIL=#{email}
+        where STUD_ID = #{studId}
+    </update>
+
+    <!--demo5:删除一个学生信息-->
+    <delete id="deleteStudentById" parameterType="int">
+        delete from STUDENTS where STUD_ID =#{studId}
+    </delete>
+
+    <!--demo6:查询一个学生信息-->
+    <select id="findStudentById" parameterType="int" resultType="Student">
+        select STUD_ID studId,NAME,EMAIL,DOB,PHONE
+        from STUDENTS
+        where STUD_ID = #{studId}
+    </select>
+
+    <!--demo7:查询所有学生-->
+    <select id="findAllStudents" resultType="Student">
+        select STUD_ID studId,NAME,EMAIL,DOB,PHONE
+        from STUDENTS
+    </select>
+
+    <!--demo8:自定义结果集封装-->
+        <!--结果集映射 resultMap 主键用id-->
+    <resultMap id="StudentResult" type="Student">
+        <id property="studId" column="stud_id"/>
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="dob" column="dob" />
+        <result property="phone" column="phone" />
+    </resultMap>
+
+    <select id="findAllStudents_resultMap" resultMap="StudentResult">
+        select * from STUDENTS
+    </select>
+
+    <!--demo9:结果集封装为Map-->
+    <select id="findStudentById_Map" parameterType="int" resultType="Map">
+        select * from STUDENTS
+        where STUD_ID =#{studId}
+    </select>
+
+    <!--demo10:-->
+    <select id="findAllStudents_Map" resultType="Map">
+        select * from STUDENTS
+    </select>
+
+
+</mapper>
