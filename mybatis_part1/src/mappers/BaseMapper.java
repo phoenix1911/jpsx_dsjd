@@ -31,6 +31,8 @@ public interface BaseMapper {
 
     public List<Student> findAllStudents();
 
+
+    //丰富的结果集封装
     public List<Student> findAllStudents_resultMap();
 
     public Map<String, Object> findStudentById_Map(Integer id);
@@ -44,4 +46,10 @@ public interface BaseMapper {
     public List<String> findAllName_list();
 
     public int findCount_int();
+// 分组
+    public List<Integer> findCount_group();
+
+    public List<Integer> findCount_group2(String columnName);
+
+    public List<Student> findStudentByName(String name);
 }

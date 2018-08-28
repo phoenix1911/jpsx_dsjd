@@ -10,6 +10,7 @@ import utils.MySqlSessionFactoryUtil;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Tjl on 2018/8/27 9:58.
@@ -65,8 +66,6 @@ public class Test2_BaseMapper {
 
         mapper.updateStudent(student);
         session.update("mappers.BaseMapper.updateStudent", student2);
-
-
         session.commit();
     }
 
@@ -79,10 +78,9 @@ public class Test2_BaseMapper {
         //3.执行方法--sql
         mapper.deleteStudentById(102);
         session.delete("mappers.BaseMapper.deleteStudentById", 103);
-
-
         session.commit();
     }
+
     @Test
     public void demo6_selectById() {
         //1.获取sqlSession
@@ -91,11 +89,9 @@ public class Test2_BaseMapper {
         BaseMapper mapper = session.getMapper(BaseMapper.class);
         //3.执行方法--sql
         Student studentById = mapper.findStudentById(99);
-        System.out.println("findStudentById: "+studentById);
+        System.out.println("findStudentById: " + studentById);
         Object o = session.selectOne("mappers.BaseMapper.findStudentById", 97);
-        System.out.println("findStudentById: "+o);
-
-
+        System.out.println("findStudentById: " + o);
         session.commit();
     }
 
@@ -133,8 +129,8 @@ public class Test2_BaseMapper {
         BaseMapper mapper = session.getMapper(BaseMapper.class);
         Map<String, Object> studentById_map = mapper.findStudentById_Map(201);
         System.out.println(studentById_map);
+        System.out.println(studentById_map.getClass());
         session.commit();
-
     }
 
 
@@ -146,11 +142,99 @@ public class Test2_BaseMapper {
         BaseMapper mapper = session.getMapper(BaseMapper.class);
         //3.执行方法--sql
         List<Map<String, Object>> allStudents_map = mapper.findAllStudents_Map();
-        for (Map<String, Object> map :allStudents_map) {
+        for (Map<String, Object> map : allStudents_map) {
             System.out.println(map);
-
         }
+        System.out.println(allStudents_map.getClass());
+        session.commit();
+    }
 
+    @Test
+    public void demo11_select6_result_set() {
+        //1.获取sqlSession
+        SqlSession session = MySqlSessionFactoryUtil.openSqlSession();
+        //2.获取映射接口对应的实现类对象
+        BaseMapper mapper = session.getMapper(BaseMapper.class);
+        //3.执行方法--sql
+        Set<Student> allStudents_set = mapper.findAllStudents_Set();
+        System.out.println(allStudents_set);
+        System.out.println(allStudents_set.getClass());
+        session.commit();
+    }
+
+    @Test
+    public void demo12_select7_result_sortedset() {
+        //1.获取sqlSession
+        SqlSession session = MySqlSessionFactoryUtil.openSqlSession();
+        //2.获取映射接口对应的实现类对象
+        BaseMapper mapper = session.getMapper(BaseMapper.class);
+        //3.执行方法--sql
+        Set<Student> allStudents_set = mapper.findAllStudents_SortedSet();
+        System.out.println(allStudents_set);
+        System.out.println(allStudents_set.getClass());
+
+        session.commit();
+    }
+
+    @Test
+    public void demo13_select8_findAllNameList() {
+        //1.获取sqlSession
+        SqlSession session = MySqlSessionFactoryUtil.openSqlSession();
+        //2.获取映射接口对应的实现类对象
+        BaseMapper mapper = session.getMapper(BaseMapper.class);
+        //3.执行方法--sql
+        List<String> allName_list = mapper.findAllName_list();
+        System.out.println(allName_list);
+
+        session.commit();
+    }
+
+    @Test
+    public void demo14_select9_count() {
+        //1.获取sqlSession
+        SqlSession session = MySqlSessionFactoryUtil.openSqlSession();
+        //2.获取映射接口对应的实现类对象
+        BaseMapper mapper = session.getMapper(BaseMapper.class);
+        //3.执行方法--sql
+        int count_int = mapper.findCount_int();
+        System.out.println("有几条?:" + count_int);
+
+        session.commit();
+    }
+
+    @Test
+    public void demo15_group() {
+        //1.获取sqlSession
+        SqlSession session = MySqlSessionFactoryUtil.openSqlSession();
+        //2.获取映射接口对应的实现类对象
+        BaseMapper mapper = session.getMapper(BaseMapper.class);
+        //3.执行方法--sql
+        List<Integer> count_group = mapper.findCount_group();
+        System.out.println("分组:" + count_group);
+        session.commit();
+    }
+
+    @Test
+    public void demo16_select11() {
+        //1.获取sqlSession
+        SqlSession session = MySqlSessionFactoryUtil.openSqlSession();
+        //2.获取映射接口对应的实现类对象
+        BaseMapper mapper = session.getMapper(BaseMapper.class);
+        //3.执行方法--sql
+        List<Integer> email = mapper.findCount_group2("email");
+        System.out.println(email);
+        session.commit();
+    }
+
+    @Test
+    public void demo17_findStudentByName() {
+        //1.获取sqlSession
+        SqlSession session = MySqlSessionFactoryUtil.openSqlSession();
+        //2.获取映射接口对应的实现类对象
+        BaseMapper mapper = session.getMapper(BaseMapper.class);
+        //3.执行方法--sql
+        List<Student> name = mapper.findStudentByName("tom");
+        System.out.println(name);
 
         session.commit();
     }

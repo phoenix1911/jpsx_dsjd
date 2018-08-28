@@ -73,5 +73,46 @@
         select * from STUDENTS
     </select>
 
+    <!--demo11:查询所有学生信息,学生信息封装为Student后,存于set中:hashSet-->
+    <select id="findAllStudents_Set" resultMap="StudentResult">
+        select * from STUDENTS
+    </select>
+
+    <!--demo12:查询所有学生信息,学生信息封装为Student后,存于Set中,并排序-->
+    <!--Student 实现Comparable接口-->
+    <select id="findAllStudents_SortedSet" resultMap="StudentResult">
+        select * from STUDENTS
+    </select>
+
+    <!--dome13:查询所有学生name-->
+    <select id="findAllName_list" resultType="String">
+        select NAME from  STUDENTS
+    </select>
+
+    <select id="findCount_int" resultType="int">
+        select count(*) from STUDENTS
+    </select>
+
+    <!--demo15:分组查询email一样的学生数量-->
+    <select id="findCount_group" resultType="int">
+        select count(*)
+        from STUDENTS
+        group by EMAIL
+    </select>
+
+    <!--demo16: -->
+    <select id="findCount_group2" parameterType="String" resultType="int">
+        select count(*)
+        from STUDENTS
+        group by ${email}
+    </select>
+    
+    <!--demo17:${}&#{}-->
+    <select id="findStudentByName" parameterType="String" resultMap="StudentResult">
+        select * from STUDENTS
+        where name = '${_parameter}'
+    </select>
+
+    <!---->
 
 </mapper>

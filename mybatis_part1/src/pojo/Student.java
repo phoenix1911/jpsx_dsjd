@@ -2,7 +2,7 @@ package pojo;
 
 import java.util.Date;
 
-public class Student {
+public class Student implements Comparable<Student>{
 	private int studId;
 	private String name;
 	private String email;
@@ -10,7 +10,27 @@ public class Student {
 
 	//类型处理器
 	private PhoneNumber phone;
-	
+
+	//测试一对一映射
+	private Address address;
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Student(int studId, String name, String email, Date dob, PhoneNumber phone, Address address) {
+		this.studId = studId;
+		this.name = name;
+		this.email = email;
+		this.dob = dob;
+		this.phone = phone;
+		this.address = address;
+	}
+
 	public Student(){
 	}
 	public Student(int studId, String name, String email, Date dob) {
@@ -29,6 +49,7 @@ public class Student {
 				", email='" + email + '\'' +
 				", dob=" + dob +
 				", phone=" + phone +
+				", address=" + address +
 				'}';
 	}
 
@@ -78,5 +99,12 @@ public class Student {
 		this.email = email;
 		this.dob = dob;
 		this.phone = phone;
+	}
+
+
+
+	@Override
+	public int compareTo(Student o) {
+		return this.getStudId()-o.getStudId();
 	}
 }

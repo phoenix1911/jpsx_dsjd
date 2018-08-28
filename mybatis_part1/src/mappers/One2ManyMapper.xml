@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.briup.mappers.StudentMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="mappers.One2ManyMapper">
+
+    <!--嵌套结果的形式-->
+    <!--address-->
+    <resultMap id="addressResult" type="Address">
+        <id property="addrId" column="aid"/>
+        <result property="street" column="street"/>
+        <result property="city" column="city"/>
+        <result property="state" column="state"/>
+        <result property="zip" column="zip"/>
+        <result property="country" column="country"/>
+    </resultMap>
+    <!--course-->
+    <resultMap id="courseResult" type="Course">
+        <id property="courseId" column="id"/>
+        <result property="name" column="cname"/>
+        <result property="description" column="description"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+    </resultMap>
+    <!--嵌套结果的tutor-->
+    <resultMap id="tutorWithCoursesA" type="Tutor">
+        <id property="tutorId" column="tid"/>
+        <result property="name" column="tname"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <!--有一个对象:1    pojo对象-->
+        <association property="address" resultMap="addressResult"/>
+        <!--有一些对象:n-->
+        <collection property="courses" resultMap="courseResult"/>
+    </resultMap>
+    <select id="findTutorByIdWithCoursesA" parameterType="int" resultMap="tutorWithCoursesA">
+        select t.TUTOR_ID tid,t.NAME tname,EMAIL,PHONE,
+               c.COURSE_ID cid,c.NAME cname,DESCRIPTION,START_DATE,END_DATE,
+               a.ADDR_ID aid,STREET,CITY,STATE,ZIP,COUNTRY
+        from TUTORS t,COURSES c,ADDRESSES a
+        where t.TUTOR_ID = c.TUTOR_ID and t.ADDR_ID = a.ADDR_ID and t.TUTOR_ID = #{tutorId}
+    </select>
+
+
+
+</mapper>
