@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.briup.mappers.StudentMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="mappers.DynamicMapper">
+    <!--courseResult-->
+    <resultMap id="CourseResult" type="Course">
+        <id property="courseId" column="course_id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
+
+    </resultMap>
+
+    <!--demo:1 if标签 where条件至少有一个,可能有多个-->
+        <!--test="name !-->
+    <select id="searchCourses" parameterType="map" resultMap="CourseResult">
+        select *
+        from COURSES
+        where TUTOR_ID = #{tutorId}
+        <if test="name !=null">
+            and name like #{name}
+        </if>
+        <if test="courseName != null">
+            AND NAME LIKE #{courseName}
+        </if>
+        <if test="startDate != null">
+            AND START_DATE >= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND END_DATE <![CDATA[ <= ]]> #{endDate}
+        </if>
+    </select>
+
+</mapper>

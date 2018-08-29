@@ -7,13 +7,13 @@
 
     <!--根据Id查询学生,携带地址-->
     <!--简单ResultMap-->
-    <!--<resultMap id="StudentResult" type="Student">-->
-        <!--<id property="studId" column="stud_id"/>-->
-        <!--<result property="name" column="name"/>-->
-        <!--<result property="email" column="email"/>-->
-        <!--<result property="dob" column="dob"/>-->
-        <!--<result property="phone" column="phone"/>-->
-    <!--</resultMap>-->
+    <resultMap id="StudentResult" type="Student">
+    <id property="studId" column="stud_id"/>
+    <result property="name" column="name"/>
+    <result property="email" column="email"/>
+    <result property="dob" column="dob"/>
+    <result property="phone" column="phone"/>
+</resultMap>
     <!--扩展ResultMap,继承StudentResult-->
     <!--<resultMap id="StudentWithAddress" type="Student" extends="StudentResult">-->
         <!--<result property="address.addrId" column="saId"/>-->
@@ -89,32 +89,98 @@
 
 
 
-    <!--嵌套结果-->
-    <resultMap id="addressResult" type="Address">
-        <id property="addrId" column="addr_id"/>
-        <result property="street" column="street"/>
-        <result property="city" column="city"/>
-        <result property="state" column="state"/>
-        <result property="zip" column="zip"/>
-        <result property="country" column="country"/>
-    </resultMap>
-    <!--根据地址ID查找地址信息-->
-    <select id="findAddressById" parameterType="int" resultMap="addressResult">
-        select * from ADDRESSES where ADDR_ID = #{addrId}
-    </select>
+    <!--&lt;!&ndash;嵌套结果&ndash;&gt;-->
+    <!--<resultMap id="addressResult" type="Address">-->
+        <!--<id property="addrId" column="addr_id"/>-->
+        <!--<result property="street" column="street"/>-->
+        <!--<result property="city" column="city"/>-->
+        <!--<result property="state" column="state"/>-->
+        <!--<result property="zip" column="zip"/>-->
+        <!--<result property="country" column="country"/>-->
+    <!--</resultMap>-->
+    <!--&lt;!&ndash;根据地址ID查找地址信息&ndash;&gt;-->
+    <!--<select id="findAddressById" parameterType="int" resultMap="addressResult">-->
+        <!--select * from ADDRESSES where ADDR_ID = #{addrId}-->
+    <!--</select>-->
 
-    <resultMap type="Student" id="StudentWithAddress4">
-        <id property="studId" column="stud_id"/>
+    <!--<resultMap type="Student" id="StudentWithAddress4">-->
+        <!--<id property="studId" column="stud_id"/>-->
+        <!--<result property="name" column="name"/>-->
+        <!--<result property="email" column="email"/>-->
+        <!--<result property="dob" column="dob"/>-->
+        <!--<result property="phone" column="phone"/>-->
+        <!--<association property="address" select="findAddressById" column="addr_id"/>-->
+    <!--</resultMap>-->
+
+    <!--<select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress4">-->
+        <!--select * from STUDENTS where STUD_ID=#{studId}-->
+    <!--</select>-->
+
+
+
+    <!--*****************************************-->
+    <!--嵌套查询  -->
+    <!--讲师的resultMap  -->
+    <resultMap type="Tutor" id="TutorResultWithCsA">
+        <id property="tutorId" column="tutor_id"/>
         <result property="name" column="name"/>
         <result property="email" column="email"/>
-        <result property="dob" column="dob"/>
         <result property="phone" column="phone"/>
-        <association property="address" select="findAddressById" column="addr_id"/>
+        <association property="address" column="addr_id" select="findAddressById"></association>
+        <collection property="courses" column="tutor_id" select="findAllCoursesByTId"></collection>
     </resultMap>
-
-    <select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress4">
-        select * from STUDENTS where STUD_ID=#{studId}
+    <!--地址resultMap  -->
+    <resultMap type="Address" id="addressResult">
+        <id property="addrId" column="addr_id"/>
+    </resultMap>
+    <!--课程resultMap  -->
+    <resultMap type="Course" id="CourseResult">
+        <id property="courseId" column="course_id"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+    </resultMap>
+    <!--1.通过讲师ID查找讲师数据-1条[tutor_id,addr_id]-讲师对象，配置关联关系的建立  -->
+    <select id="findTutorByIdWithCoursesA" parameterType="int" resultMap="TutorResultWithCsA">
+        select *
+        from tutors
+        where tutor_id = #{tutorId}
     </select>
+    <!--2.通过讲师ID查找对应的课程，多条课程信息-集合对象  -->
+    <select id="findAllCoursesByTId" parameterType="int" resultMap="CourseResult">
+        select *
+        from courses
+        where tutor_id = #{tutorId}
+    </select>
+
+    <!--3.通过地址ID查找地址对象，一个地址对象  -->
+    <select id="findAddressById" parameterType="int" resultMap="addressResult">
+        select *
+        from addresses
+        where addr_id = #{addrId}
+    </select>
+
+
+    <!--**************************************************************-->
+    <!--多对多映射-->
+    <insert id="insertAddress" parameterType="address">
+        <selectKey keyProperty="addrId" resultType="int" order="BEFORE">
+            select my_seq.nextval from dual
+        </selectKey>
+        insert into addresses
+        values (#{addrId},#{street}, #{city}, #{state}, #{zip}, #{country})
+    </insert>
+
+    <!--填加学生-->
+    <insert id="insertStudent" parameterType="Student">
+        <selectKey keyProperty="studId" resultType="int" order="BEFORE">
+            select my_seq.nextval from dual
+        </selectKey>
+        insert into students
+        values (#{studId},#{name}, #{email},  #{dob},#{phone}, #{address.addrId})
+    </insert>
+
 
 
 

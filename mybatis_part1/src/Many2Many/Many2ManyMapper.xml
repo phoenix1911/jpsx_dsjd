@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.briup.mappers.StudentMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="Many2Many.Many2ManyMapper">
+
+    <!--demo:1.添加学生信息-->
+    <insert id="insertStudent" parameterType="Student">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select MY_SEQ.nextval from dual
+        </selectKey>
+        insert into MYBATIS_PART2_STUDENT(id,name,gender,major,grade)
+        values(#{id},#{name},#{gender},#{major},#{grade})
+    </insert>
+
+    <!--demp:2.添加课程信息-->
+    <insert id="inserCourse" parameterType="Course">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select MY_SEQ.nextval from dual
+        </selectKey>
+        insert into MYBATIS_PART2_COURSE(id,COURSE_NAME,COURSE_CODE)
+        values (#{id},#{courseName},#{courseCode})
+    </insert>
+
+    <!--demo:3.根据ID查找学生信息-->
+    <select id="getStudentById" parameterType="int" resultType="Student">
+        select * from MYBATIS_PART2_STUDENT
+    </select>
+
+    <!--demo:4通过ID查找课程-->
+    <select id="getCourseById" parameterType="int" resultType="Course">
+        select ID,COURSE_CODE courseCode,COURSE_NAME courseName
+        from MYBATIS_PART2_COURSE
+    </select>
+
+    <!--demo:5.学生选课-->
+    <insert id="studentSelectCourse">
+        insert into MYBATIS_PART2_STUDENT_COURSE(id,STUDENT_ID,COURSE_ID)
+        values (MY_SEQ.nextval,#{param1.id},#{param2.id})
+    </insert>
+
+    <!--demo:6查询比指定ID小的学生信息-->
+    <select id="getStudentByIdOnCondition" parameterType="int"  resultType="Student">
+
+    </select>
+
+    <!--demo7:多对多-->
+    <!--嵌套结果-->
+    <!--StudentResultMap 包含Course-->
+    <resultMap id="StudentWithCourses" type="Studetn">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="major" column="major"/>
+        <result property="grade" column="grade"/>
+        <!--将结果集中符合映射规则的多行字段型成多个对象组成的集合-->
+        <collection property="courses" resultMap=""></collection>
+    </resultMap>
+    <!--CourseResultMap-->
+    <resultMap id="courseResult" type="Course">
+        <id property="id" column="cid"/>
+        <result property="courseName" column="course_name"/>
+        <result property="courseCode" column="course_code"/>
+    </resultMap>
+
+    <select id="getStudentByIdWithCourses" parameterType="int" resultMap="StudentWithCourses">
+        select s.*,c,c.ID cid,COURSE_NAME,COURSE_CODE
+        from MYBATIS_PART2_STUDENT , MYBATIS_PART2_COURSE c,MYBATIS_PART2_STUDENT_COURSE sc
+        where s.id = sc.STUDENT_ID and sc.COURSE_ID = c.ID and s.id =#{sId}
+    </select>
+
+    <!--嵌套查询-->
+    <!--1.根据学生ID查找学生信息-->
+    <select id="getStudentByIdwithCourses" parameterType="int" resultMap="">
+
+    </select>
+
+</mapper>

@@ -2,7 +2,7 @@ package pojo;
 
 import java.util.Date;
 
-public class Student implements Comparable<Student>{
+public class Student extends Many2Many.Student implements Comparable<Student>{
 	private int studId;
 	private String name;
 	private String email;
