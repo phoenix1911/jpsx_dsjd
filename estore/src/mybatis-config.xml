@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+
+	<!--变量定义1.property2.文件.properties  文件优先级高-->
+	<properties resource="oracle.properties"/>
+
+	<!--设置全局参数-->
+	<settings>
+		<setting name="cacheEnabled" value="true"/>
+	</settings>
+
+	<!--别名   用于Mapper.xml 的所有type中-->
+	<typeAliases>
+		<!--<typeAlias type="pojo.Student" alias="Student" />-->
+        <!--给包下所有类起别名 默认小写类名-->
+        <package name="bean"/>
+	</typeAliases>
+
+    <!--自定义类型处理器-->
+    <!--<typeHandlers>-->
+    <!--</typeHandlers>-->
+
+
+	<!--数据库的环境-->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<!--<mapper resource="mappers/StudentMapper.xml"/>-->
+        <!--加载所有mapper-->
+        <package name="dao"/>
+	</mappers>
+
+</configuration>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="dao.UserDaoMapper">
+
+    <insert id="insertUser">
+        insert into E_USER("ID", "USERNAME", "PASSWORD", "ZIP", "PHONE", "EMAIL", "UDATE", "STATE")
+        values (#{id},#{username},#{password},#{zip},#{phone},#{email},#{udate},#{state})
+    </insert>
+
+    <insert id="insertUserAutoId">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select SEQ_EUSERID.nextval from dual
+        </selectKey>
+        insert into E_USER("ID", "USERNAME", "PASSWORD", "ZIP", "PHONE", "EMAIL", "UDATE", "STATE")
+        values (#{id},#{username},#{password},#{zip},#{phone},#{email},#{udate},#{state})
+    </insert>
+
+    <update id="updateUser"  parameterType="bean.User" >
+        update E_USER set USERNAME=#{username},PASSWORD=#{password},ZIP=#{zip},PHONE=#{phone},EMAIL=#{email},UDATE=#{udate},STATE=#{state}
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteUserById">
+        delete from E_USER where ID =#{id}
+    </delete>
+
+    <select id="findUserById" resultType="bean.User" parameterType="int">
+        select * from E_USER where ID=#{id}
+    </select>
+
+    <select id="findUserByUsername" resultType="bean.User" parameterType="String">
+        select * from E_USER where USERNAME=#{username}
+    </select>
+
+
+    <select id="findAllUsers" resultType="bean.User">
+        SELECT * from E_USER
+    </select>
+</mapper>
