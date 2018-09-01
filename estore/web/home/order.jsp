@@ -1,6 +1,7 @@
 ﻿
 <%@ page language="java" contentType="text/html; charset=utf-8"
 		 pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName()
@@ -33,27 +34,32 @@
 
 </head>
 <body>
-	<!--顶部-->
-	<div class="top">
-		<div class="top_center">
-			<ul class="top_bars">
+<!--顶部-->
+<div class="top">
+	<div class="top_center">
 
-				<!-- ******************************************************* -->
-				<!-- 此处需要改链接 -->
-				<li><a href="login.html">退出</a>|</li>
-				<!-- ******************************************************* -->
+		<ul class="top_bars">
+			<c:if test="${sessionScope.user!=null}">
+				<li><a href="Outlogin">退出</a> </li>
+			</c:if>
+			<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
+			<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
+		</ul>
+		<ul class="top_lr">
+			<c:if test="${sessionScope.user!=null}">
+				<li><a>欢迎 ${sessionScope.user.username}</a></li>
+			</c:if>
+			<c:if test="${sessionScope.user ==null}">
+				<li><a href="home/login.jsp" style="color: red;">亲,请登入</a></li>
+				<li><a href="home/register.jsp">免费注册</a></li>
+			</c:if>
+		</ul>
+		<!-- ******************************************************* -->
+		<!-- ******************************************************* -->
 
-				<!-- ******************************************************* -->
-				<!-- 此处需要改链接 -->
-				<li><a href="myorder.html">我的订单<span class="jt_down"></span></a>|</li>
-				<!-- ******************************************************* -->
-
-				<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
-				<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
-			</ul>
-		</div>
 	</div>
-	<!--头部-->
+</div>
+<!--头部-->
 	<div class="header3">
 
 		<!-- ******************************************************* -->

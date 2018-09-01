@@ -1,6 +1,7 @@
 ﻿
 <%@ page language="java" contentType="text/html; charset=utf-8"
 		 pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName()
@@ -22,18 +23,22 @@
 	<script src="home/public/js/jquery-1.8.3.min.js"></script>
 </head>
 <body>
-	<!--顶部-->
-	<div class="top">
-		<div class="top_center">
-			<ul class="top_bars">
-				<li><a href="login.html">退出</a>|</li>
-				<li><a href="myorder.html">我的订单<span class="jt_down"></span></a>|</li>
-				<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
-				<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
-			</ul>
-		</div>
+<!--顶部-->
+<div class="top">
+	<div class="top_center">
+
+		<ul class="top_bars">
+			<c:if test="${sessionScope.user!=null}">
+				<li><a href="Outlogin">退出</a> </li>
+			</c:if>
+			<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
+			<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
+		</ul>
+		********************************************* -->
+
 	</div>
-	<!--头部-->
+</div>
+<!--头部-->
 	<div class="header3">
 		
 		<!-- ******************************************************* -->

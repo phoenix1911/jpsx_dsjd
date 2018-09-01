@@ -33,7 +33,8 @@ public class LoginServlet extends HttpServlet {
             User dbUser = userService.findUserByUsername(username);
             HttpSession session = req.getSession();
             session.setAttribute("user", dbUser);
-            req.getRequestDispatcher("home/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("index.servlet").forward(req, resp);
+//            req.getRequestDispatcher("home/index.jsp").forward(req, resp);
         } else {
 //        6.如果失败则在"注册页面"中弹出"注册失败*
             req.setAttribute("msg", "登陆失败!");

@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8"
 		 pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName()
@@ -30,31 +31,32 @@
 	</script>
 </head>
 <body>
-	<!--顶部-->
-	<div class="top">
-		<div class="top_center">
+<!--顶部-->
+<div class="top">
+	<div class="top_center">
 
-			<!-- ******************************************************* -->
-			<!-- ******************************************************* -->
-			<!-- *********************《修改区域》********************** -->
-			<!-- ******************************************************* -->
-			<ul class="top_lr">
-				<li><a>欢迎 张三</a></li>
-			</ul>
-			<ul class="top_bars">
-				<!-- 此处需要改链接 -->
-				<li><a href="login.html">退出</a>|</li>
-				<!-- 此处需要改链接 -->
-				<li><a href="myorder.html">我的订单<span class="jt_down"></span></a>|</li>
-				<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
-				<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
-			</ul>
-			<!-- ******************************************************* -->
-			<!-- ******************************************************* -->
+		<ul class="top_bars">
+			<c:if test="${sessionScope.user!=null}">
+				<li><a href="Outlogin">退出</a> </li>
+			</c:if>
+			<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
+			<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
+		</ul>
+		<ul class="top_lr">
+			<c:if test="${sessionScope.user!=null}">
+				<li><a>欢迎 ${sessionScope.user.username}</a></li>
+			</c:if>
+			<c:if test="${sessionScope.user ==null}">
+				<li><a href="home/login.jsp" style="color: red;">亲,请登入</a></li>
+				<li><a href="home/register.jsp">免费注册</a></li>
+			</c:if>
+		</ul>
+		<!-- ******************************************************* -->
+		<!-- ******************************************************* -->
 
-		</div>
 	</div>
-	<!--头部-->
+</div>
+<!--头部-->
 	<div class="header3">
 		<!-- ******************************************************* -->
 		<!-- 此处需要改链接 -->
@@ -66,18 +68,12 @@
 				<span>搜索</span>
 			</div>
 
-			<!-- ******************************************************* -->
-			<!-- ******************************************************* -->
-			<!-- *********************《修改区域》********************** -->
-			<!-- *************** 循环读取前第五个分类名 **************** -->
-			<!-- ******************************************************* -->
+
 			<p>
-				<!-- 此处需要改链接 -->
-				<a href="list.jsp">文学类</a>|
-				<a href="list.jsp">教育类</a>|
-				<a href="list.jsp">计算机</a>|
-				<a href="list.jsp">儿童类</a>|
-				<a href="list.jsp">漫画类</a>|
+				<%--搜索框下的--%>
+				<c:forEach items="${sessionScope.row5Categoty}" var="category">
+					<a href="list.servlet?categoryid=${category.id}">${category.name}|</a>
+				</c:forEach>
 			</p>
 			<!-- ******************************************************* -->
 			<!-- ******************************************************* -->
@@ -87,7 +83,7 @@
 			<div class="myyy">
 				<!-- ******************************************************* -->
 				<!-- 此处需要改链接 -->
-				<a href="userinfo.html">个人信息</a>
+				<a href="home/userinfo.jsp">个人信息</a>
 				<!-- ******************************************************* -->
 				<span class="sj_down"></span>
 			 </div>
@@ -107,21 +103,12 @@
 				全部图书分类
 			</div>
 
-			<!-- ******************************************************* -->
-			<!-- ******************************************************* -->
-			<!-- *********************《修改区域》********************** -->
-			<!-- *************** 循环读取前第五个分类名 **************** -->
-			<!-- ******************************************************* -->
 			<ul>
-				<!-- 此处需要改链接 -->
-				<li><a href="list.jsp">文学类</a></li>
-				<li><a href="list.jsp">教育类</a></li>
-				<li><a href="list.jsp">计算机</a></li>
-				<li><a href="list.jsp">儿童类</a></li>
-				<li><a href="list.jsp">漫画类</a></li>
+				<c:forEach items="${sessionScope.allCategory}" var="category">
+					<li><a href="list.servlet?categoryid=${category.id}">${category.name}</a></li>
+				</c:forEach>
 			</ul>
-			<!-- ******************************************************* -->
-			<!-- ******************************************************* -->
+
 
 		</div>
 	</div>

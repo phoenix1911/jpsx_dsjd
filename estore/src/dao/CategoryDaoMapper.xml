@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="dao.CategoryDaoMapper">
+
+    <select id="findAllCategory" resultType="bean.Category">
+        select * from E_CATEGORY
+    </select>
+
+    <select id="find5rowCategory" resultType="bean.Category">
+        select * from E_CATEGORY
+    </select>
+
+    <select id="select2BooksByCategoryId" resultType="bean.Book">
+        select * from E_BOOK where CATEGORYID=#{id} and ROWNUM <![CDATA[<]]> = 2
+    </select>
+
+</mapper>

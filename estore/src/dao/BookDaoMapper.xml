@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="dao.BookDaoMapper">
+
+    <select id="select2BooksByCategoryId" resultType="bean.Book">
+        select * from E_BOOK where CATEGORYID=#{id} and ROWNUM <![CDATA[<]]> = 2
+    </select>
+
+    <select id="selectRecommendedBooks" resultType="bean.Book">
+        select * from E_BOOK where STATE=1
+    </select>
+
+    <select id="selectBestSeller3Books" resultType="bean.Book">
+        select * from E_BOOK where  ROWNUM <![CDATA[<]]> = 3
+    </select>
+
+    <select id="selectBestSeller3Books2" resultType="int">
+        select BOOKID from (
+        select BOOKID ,sum(onumber)
+        from E_ORDERLINE
+        group by BOOKID
+        order by sum(onumber) desc )
+        where ROWNUM<![CDATA[<]]>=3
+
+    </select>
+
+    <select id="selectBookById" resultType="bean.Book">
+        select * from E_BOOK where id = #{id}
+    </select>
+
+    <select id="selectBookByCategoryId" resultType="bean.Book">
+        select * from E_BOOK where CATEGORYID =#{id}
+    </select>
+
+
+</mapper>

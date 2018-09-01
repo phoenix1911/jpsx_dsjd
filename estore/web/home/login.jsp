@@ -64,7 +64,7 @@
 						<a class="fg" href="javascript:alert('敬请期待！');">忘记登录密码？</a>
 						<!-- ******************************************************* -->
 						<!-- 此处需要改链接 -->
-						<a class="treg" href="home/register.html">立即注册</a>
+						<a class="treg" href="home/register.jsp">立即注册</a>
 						<!-- ******************************************************* -->
 					</div>
 					<div class="sub_box">

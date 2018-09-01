@@ -45,10 +45,6 @@ public class UpdateUserPwdServlet extends HttpServlet {
             req.getRequestDispatcher("home/editpwd.jsp").forward(req, resp);
         }
 
-
-
-
-
     }
 
     @Override
