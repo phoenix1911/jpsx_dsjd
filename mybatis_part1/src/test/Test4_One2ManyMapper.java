@@ -9,6 +9,7 @@ import utils.MySqlSessionFactoryUtil;
 /**
  * Created by Tjl on 2018/8/27 16:56.
  */
+//ok
 public class Test4_One2ManyMapper {
     @Test
     public void test1_findStudentWithAddress(){

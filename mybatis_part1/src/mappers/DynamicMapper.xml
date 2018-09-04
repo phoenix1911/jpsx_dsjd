@@ -1,36 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- com.briup.mappers.StudentMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
 <mapper namespace="mappers.DynamicMapper">
-    <!--courseResult-->
-    <resultMap id="CourseResult" type="Course">
+    <!--courseResult  -->
+    <resultMap type="Course" id="CourseResult">
         <id property="courseId" column="course_id"/>
-        <result column="name" property="name"/>
-        <result column="description" property="description"/>
-        <result column="start_date" property="startDate"/>
-        <result column="end_date" property="endDate"/>
-
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="start_date" property="startDate" />
+        <result column="end_date" property="endDate" />
     </resultMap>
 
-    <!--demo:1 if标签 where条件至少有一个,可能有多个-->
-        <!--test="name !-->
-    <select id="searchCourses" parameterType="map" resultMap="CourseResult">
+    <!--查询符合条件的课程  -->
+    <!--测试1：if标签，where条件至少有一个，可能有多个
+              test="name != null":有名字为name的key，返回true，拼接sql，为false，不拼接
+            -->
+    <!-- <select id="searchCourses" parameterType="map" resultMap="CourseResult">
         select *
-        from COURSES
-        where TUTOR_ID = #{tutorId}
-        <if test="name !=null">
+        from courses
+        where tutor_id = #{tutorId}
+        <if test="name != null">
             and name like #{name}
         </if>
-        <if test="courseName != null">
-            AND NAME LIKE #{courseName}
+        <if test="description != null">
+            and description like #{description}
         </if>
-        <if test="startDate != null">
-            AND START_DATE >= #{startDate}
+        <if test="start_date != null">
+            and start_date > #{start_date}
+        </if>
+        <if test="end_date != null">
+            and end_date <![CDATA[<]]> #{end_date}
+        </if>
+    </select> -->
+    <!-- <select id="searchCourses" parameterType="map" resultMap="CourseResult">
+        select *
+        from courses where
+        <choose>
+            <when test="searchBy == 'tutor'">
+                tutor_id = #{searchValue}
+            </when>
+            <when test="searchBy == 'courseName'">
+                name like #{searchValue}
+            </when>
+            <otherwise>
+                1=1
+            </otherwise>
+        </choose>
+    </select> -->
+    <!--请求条件可能有可能没有 ：0-n -->
+    <!-- <select id="searchCourses" parameterType="map" resultMap="CourseResult">
+        select *
+        from courses
+        where 1=1
+        <if test="tutorId != null">
+            and tutor_id = #{tutorId}
+        </if>
+        <if test="name != null">
+            and name like #{name}
         </if>
         <if test="endDate != null">
-            AND END_DATE <![CDATA[ <= ]]> #{endDate}
+            and end_date <![CDATA[<]]> #{endDate}
+        </if>
+    </select> -->
+    <!-- <select id="searchCourses" parameterType="map" resultMap="CourseResult">
+        select *
+        from courses
+        <where> 1=1
+            <if test="tutorId != null">
+                and tutor_id = #{tutorId}
+            </if>
+            <if test="name != null">
+                and name like #{name}
+            </if>
+            <if test="endDate != null">
+                and end_date <![CDATA[<]]> #{endDate}
+            </if>
+        </where>
+    </select> -->
+    <!--trim  -->
+    <!-- <select id="searchCourses" parameterType="map" resultMap="CourseResult">
+        select *
+        from courses
+        <trim prefix="where" prefixOverrides="and|or"
+        suffixOverrides="and|or" suffix="and 1 = 1">
+            <if test="tutorId != null">
+                tutor_id = #{tutorId} and
+            </if>
+            <if test="name != null">
+                name like #{name} and
+            </if>
+            <if test="endDate != null">
+                end_date <![CDATA[<]]> #{endDate} and
+            </if>
+        </trim>
+    </select> -->
+    <!--foreache  -->
+    <!-- <select id="searchCourses" parameterType="map" resultMap="CourseResult">
+        select *
+        from courses
+        <where>
+            <if test="tutorIds != null">
+                <foreach collection="tutorIds" item="tutorId">
+                  or tutor_id = #{tutorId}
+                </foreach>
+            </if>
+        </where>
+    </select> -->
+    <!-- <select id="searchCourses" parameterType="map" resultMap="CourseResult">
+        select *
+        from courses
+        <where>
+            <if test="tutorIds != null">
+                <trim suffixOverrides="or|and">
+                    <foreach collection="tutorIds" item="tutorId">
+                       tutor_id = #{tutorId} or
+                    </foreach>
+                </trim>
+            </if>
+        </where>
+    </select> -->
+    <select id="searchCourses" parameterType="map" resultMap="CourseResult">
+        select *
+        from courses
+        <if test="tutorIds != null">
+            <where>
+                tutor_id in
+                <foreach collection="tutorIds" item="tutorId" open="(" separator="," close=")">
+                    #{tutorId}
+                </foreach>
+            </where>
         </if>
     </select>
+
+    <!--set  -->
+    <update id="updateCourse" parameterType="course">
+        update courses
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="startDate != null">
+                start_date=#{startDate},
+            </if>
+        </set>
+        where course_id = #{courseId}
+    </update>
+    <update id="updateCourses"></update>
+
 
 </mapper>

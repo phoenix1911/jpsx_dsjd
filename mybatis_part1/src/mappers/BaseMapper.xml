@@ -101,10 +101,10 @@
     </select>
 
     <!--demo16: -->
-    <select id="findCount_group2" parameterType="String" resultType="int">
+    <select id="findCount_group2" parameterType="map" resultType="int">
         select count(*)
-        from STUDENTS
-        group by ${email}
+        from students
+        group by ${columnName}
     </select>
     
     <!--demo17:${}&#{}-->

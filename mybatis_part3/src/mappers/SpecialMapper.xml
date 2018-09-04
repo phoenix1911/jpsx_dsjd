@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.briup.mappers.StudentMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="mappers.SpecialMapper">
+    <cache/>
+    <!--添加User-->
+    <insert id="insertUser" parameterType="user">
+        insert into MYBATIS_PART3_USER(id,name,gender)
+        values(#{id},#{name},#{gender})
+    </insert>
+    <!--<select id="findUserById_test" resultType="pojo.User"></select>-->
+    <!--<select id="findUserById" resultType="pojo.User"></select>-->
+    <select id="findStudentByNameAndEmail" resultType="pojo.Student">
+        select STUD_ID studId,name,email,dob,phone
+        from STUDENTS
+        where name =#{param1} and email = #{param2}
+    </select>
+    <select id="findAllUsers" resultType="pojo.User">
+        select * from MYBATIS_PART3_USER
+    </select>
+    <select id="findAllUsersWithRowBounds" resultType="pojo.User">
+        select * from MYBATIS_PART3_USER
+    </select>
+    <select id="findUserById" resultType="pojo.User">
+        select * from MYBATIS_PART3_USER where ID= #{id}
+    </select>
+
+</mapper>

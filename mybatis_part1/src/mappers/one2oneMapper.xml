@@ -3,187 +3,240 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- com.briup.mappers.StudentMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
 <mapper namespace="mappers.One2OneMapper">
+    <!--
+		简单resultMap:映射单表Student
+	<resultMap id="StudentResult" type="Student">
+		<id property="studId" column="stud_id" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="dob" column="dob" />
+	</resultMap>
+	扩展ResultMap,继承单表配置，添加address
+	<resultMap id="StudentWithAddress"  extends="StudentResult" type="Student">
+		<result property="address.addrId" column="saId" />
+		<result property="address.street" column="street" />
+		<result property="address.city" column="city" />
+		<result property="address.state" column="state" />
+		<result property="address.country" column="country" />
+	</resultMap>
+	测试1：根据ID查询学生，携带地址信息
+	<select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress">
+		select stud_id,name,email,phone,dob,s.addr_id saId,
+			   a.addr_id aaId,street,city,state,zip,country
+		from students s,addresses a
+		where s.addr_id = a.addr_id and stud_id = #{id}
+	</select>
+	 -->
 
-
-    <!--根据Id查询学生,携带地址-->
-    <!--简单ResultMap-->
-    <resultMap id="StudentResult" type="Student">
-    <id property="studId" column="stud_id"/>
-    <result property="name" column="name"/>
-    <result property="email" column="email"/>
-    <result property="dob" column="dob"/>
-    <result property="phone" column="phone"/>
-</resultMap>
-    <!--扩展ResultMap,继承StudentResult-->
-    <!--<resultMap id="StudentWithAddress" type="Student" extends="StudentResult">-->
-        <!--<result property="address.addrId" column="saId"/>-->
-        <!--<result property="address.street" column="street"/>-->
-        <!--<result property="address.city" column="city"/>-->
-        <!--<result property="address.state" column="state"/>-->
-        <!--<result property="address.country" column="country"/>-->
-
-    <!--</resultMap>-->
-    <!--<select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress">-->
-        <!--select STUD_ID,NAME,EMAIL,DOB,PHONE,s.ADDR_ID saId,a.ADDR_ID aaId,STREET,CITY,STATE,ZIP,COUNTRY-->
-        <!--from STUDENTS s,ADDRESSES a-->
-        <!--where s.ADDR_ID = a.ADDR_ID-->
-          <!--and STUD_ID=#{id}-->
-    <!--</select>-->
-
-<!--*****************************************************-->
-
-    <!--&lt;!&ndash;一对一的嵌套结果&ndash;&gt;-->
-    <!--&lt;!&ndash;address&ndash;&gt;-->
-    <!--<resultMap id="addressResult" type="Address">-->
-        <!--<id property="addrId" column="addr_id"/>-->
-        <!--<result property="street" column="street"/>-->
-        <!--<result property="city" column="city"/>-->
-        <!--<result property="state" column="state"/>-->
-        <!--<result property="zip" column="zip"/>-->
-        <!--<result property="country" column="country"/>-->
-    <!--</resultMap>-->
-    <!--<resultMap type="Student" id="StudentWithAddress2">-->
-        <!--<id property="studId" column="stud_id"/>-->
-        <!--<result property="name" column="name"/>-->
-        <!--<result property="email" column="email"/>-->
-        <!--<result property="dob" column="dob"/>-->
-        <!--<result property="phone" column="phone"/>-->
-        <!--&lt;!&ndash;关联关系:has-one 要将符合resultMap为addressResult的值封装为Address对象,赋值给声明的property Student.address&ndash;&gt;-->
-        <!--<association property="address" resultMap="addressResult"/>-->
-    <!--</resultMap>-->
-
-    <!--<select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress2">-->
-        <!--select STUD_ID,NAME,EMAIL,DOB,PHONE,s.ADDR_ID saId,a.ADDR_ID aaId,STREET,CITY,STATE,ZIP,COUNTRY-->
-        <!--from STUDENTS s,ADDRESSES a-->
-        <!--where s.ADDR_ID = a.ADDR_ID-->
-        <!--and STUD_ID=#{id}-->
-    <!--</select>-->
-
-    <!--**********************************************-->
-    <!--一对一的嵌套结果-->
-    <!--address-->
-    <!--<resultMap id="addressResult" type="Address">-->
-        <!--<id property="addrId" column="addr_id"/>-->
-        <!--<result property="street" column="street"/>-->
-        <!--<result property="city" column="city"/>-->
-        <!--<result property="state" column="state"/>-->
-        <!--<result property="zip" column="zip"/>-->
-        <!--<result property="country" column="country"/>-->
-    <!--</resultMap>-->
-    <!--<resultMap type="Student" id="StudentWithAddress2">-->
-        <!--<id property="studId" column="stud_id"/>-->
-        <!--<result property="name" column="name"/>-->
-        <!--<result property="email" column="email"/>-->
-        <!--<result property="dob" column="dob"/>-->
-        <!--<result property="phone" column="phone"/>-->
-        <!--&lt;!&ndash;关联关系:has-one 要将符合resultMap为addressResult的值封装为Address对象,赋值给声明的property Student.address&ndash;&gt;-->
-        <!--<association property="address" resultMap="addressResult"/>-->
-    <!--</resultMap>-->
-
-    <!--<select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress2">-->
-        <!--select STUD_ID,NAME,EMAIL,DOB,PHONE,s.ADDR_ID saId,a.ADDR_ID aaId,STREET,CITY,STATE,ZIP,COUNTRY-->
-        <!--from STUDENTS s,ADDRESSES a-->
-        <!--where s.ADDR_ID = a.ADDR_ID-->
-          <!--and STUD_ID=#{id}-->
-    <!--</select>-->
-
-
-
-    <!--&lt;!&ndash;嵌套结果&ndash;&gt;-->
-    <!--<resultMap id="addressResult" type="Address">-->
-        <!--<id property="addrId" column="addr_id"/>-->
-        <!--<result property="street" column="street"/>-->
-        <!--<result property="city" column="city"/>-->
-        <!--<result property="state" column="state"/>-->
-        <!--<result property="zip" column="zip"/>-->
-        <!--<result property="country" column="country"/>-->
-    <!--</resultMap>-->
-    <!--&lt;!&ndash;根据地址ID查找地址信息&ndash;&gt;-->
-    <!--<select id="findAddressById" parameterType="int" resultMap="addressResult">-->
-        <!--select * from ADDRESSES where ADDR_ID = #{addrId}-->
-    <!--</select>-->
-
-    <!--<resultMap type="Student" id="StudentWithAddress4">-->
-        <!--<id property="studId" column="stud_id"/>-->
-        <!--<result property="name" column="name"/>-->
-        <!--<result property="email" column="email"/>-->
-        <!--<result property="dob" column="dob"/>-->
-        <!--<result property="phone" column="phone"/>-->
-        <!--<association property="address" select="findAddressById" column="addr_id"/>-->
-    <!--</resultMap>-->
-
-    <!--<select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress4">-->
-        <!--select * from STUDENTS where STUD_ID=#{studId}-->
-    <!--</select>-->
-
-
-
-    <!--*****************************************-->
-    <!--嵌套查询  -->
-    <!--讲师的resultMap  -->
-    <resultMap type="Tutor" id="TutorResultWithCsA">
-        <id property="tutorId" column="tutor_id"/>
-        <result property="name" column="name"/>
-        <result property="email" column="email"/>
-        <result property="phone" column="phone"/>
-        <association property="address" column="addr_id" select="findAddressById"></association>
-        <collection property="courses" column="tutor_id" select="findAllCoursesByTId"></collection>
+    <!--一对一的嵌套结果  -->
+    <!--address  -->
+    <!-- <resultMap type="Address" id="addressResult">
+        <id property="addrId" column="addr_id"/>
+        <result property="street" column="street" />
+        <result property="city" column="city" />
+        <result property="state" column="state" />
+        <result property="zip" column="zip" />
+        <result property="country" column="country" />
     </resultMap>
-    <!--地址resultMap  -->
+    student<Address>
+    <resultMap type="Student" id="StudentWithAddress2">
+        <id property="studId" column="stud_id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="dob" column="dob" />
+        关联关系：has-one 要将符合resultMap为addressResult的值封装为Address对象，赋值给声明的property
+            Student.address
+
+        <association property="address" resultMap="addressResult"></association>
+    </resultMap>
+    <resultMap type="Student" id="StudentWithAddress3">
+        <id property="studId" column="stud_id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="dob" column="dob" />
+        <association property="address" javaType="Address">
+            <id property="addrId" column="addr_id"/>
+            <result property="street" column="street" />
+            <result property="city" column="city" />
+            <result property="state" column="state" />
+            <result property="zip" column="zip" />
+            <result property="country" column="country" />
+        </association>
+    </resultMap>
+
+    <select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress3">
+        select stud_id,name,email,phone,dob,
+               a.addr_id,street,city,state,zip,country
+        from students s,addresses a
+        where s.addr_id = a.addr_id and stud_id = #{id}
+    </select> -->
+
+    <!--嵌套查询  -->
+    <!--address  -->
+    <!--<resultMap type="Address" id="addressResult">-->
+        <!--<id property="addrId" column="addr_id"/>-->
+        <!--<result property="street" column="street" />-->
+        <!--<result property="city" column="city" />-->
+        <!--<result property="state" column="state" />-->
+        <!--<result property="zip" column="zip" />-->
+        <!--<result property="country" column="country" />-->
+    <!--</resultMap>-->
+    <!--根据地址ID查找地址信息  -->
+    <!--<select id="findAddressById" parameterType="int" resultMap="addressResult">-->
+        <!--select * from addresses where addr_id = #{addrId}-->
+    <!--</select>-->
+    <!--&lt;!&ndash;student<Address>  &ndash;&gt;-->
+    <!--<resultMap type="Student" id="StudentWithAddress4">-->
+        <!--<id property="studId" column="stud_id" />-->
+        <!--<result property="name" column="name" />-->
+        <!--<result property="email" column="email" />-->
+        <!--<result property="phone" column="phone" />-->
+        <!--<result property="dob" column="dob" />-->
+        <!--&lt;!&ndash;关联关系：has-one 要将符合resultMap为addressResult的值封装为Address对象，赋值给声明的property-->
+            <!--Student.address-->
+          <!--&ndash;&gt;-->
+        <!--<association property="address" column="addr_id" select="findAddressById"></association>-->
+    <!--</resultMap>-->
+    <!--<select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress4">-->
+        <!--select * from students where stud_id = #{studId}-->
+    <!--</select>-->
+
+
+    <!--&lt;!&ndash;添加地址  &ndash;&gt;-->
+    <!--<insert id="insertAddress" parameterType="Address">-->
+        <!--<selectKey keyProperty="addrId" resultType="int" order="BEFORE">-->
+            <!--select my_seq.nextval from dual-->
+        <!--</selectKey>-->
+        <!--insert into addresses-->
+        <!--values(#{addrId},#{street},#{city},#{state},#{zip},#{country})-->
+    <!--</insert>-->
+    <!--&lt;!&ndash;添加学生  &ndash;&gt;-->
+    <!--<insert id="insertStudent" parameterType="Student">-->
+        <!--<selectKey keyProperty="studId" resultType="int" order="BEFORE">-->
+            <!--select my_seq.nextval from dual-->
+        <!--</selectKey>-->
+        <!--insert into students-->
+        <!--values(#{studId},#{name},#{email},#{phone},#{dob},#{address.addrId})-->
+    <!--</insert>-->
+    <!--
+		简单resultMap:映射单表Student
+	<resultMap id="StudentResult" type="Student">
+		<id property="studId" column="stud_id" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="dob" column="dob" />
+	</resultMap>
+	扩展ResultMap,继承单表配置，添加address
+	<resultMap id="StudentWithAddress"  extends="StudentResult" type="Student">
+		<result property="address.addrId" column="saId" />
+		<result property="address.street" column="street" />
+		<result property="address.city" column="city" />
+		<result property="address.state" column="state" />
+		<result property="address.country" column="country" />
+	</resultMap>
+	测试1：根据ID查询学生，携带地址信息
+	<select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress">
+		select stud_id,name,email,phone,dob,s.addr_id saId,
+			   a.addr_id aaId,street,city,state,zip,country
+		from students s,addresses a
+		where s.addr_id = a.addr_id and stud_id = #{id}
+	</select>
+	 -->
+
+    <!--一对一的嵌套结果  -->
+    <!--address  -->
+    <!-- <resultMap type="Address" id="addressResult">
+        <id property="addrId" column="addr_id"/>
+        <result property="street" column="street" />
+        <result property="city" column="city" />
+        <result property="state" column="state" />
+        <result property="zip" column="zip" />
+        <result property="country" column="country" />
+    </resultMap>
+    student<Address>
+    <resultMap type="Student" id="StudentWithAddress2">
+        <id property="studId" column="stud_id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="dob" column="dob" />
+        关联关系：has-one 要将符合resultMap为addressResult的值封装为Address对象，赋值给声明的property
+            Student.address
+
+        <association property="address" resultMap="addressResult"></association>
+    </resultMap>
+    <resultMap type="Student" id="StudentWithAddress3">
+        <id property="studId" column="stud_id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="dob" column="dob" />
+        <association property="address" javaType="Address">
+            <id property="addrId" column="addr_id"/>
+            <result property="street" column="street" />
+            <result property="city" column="city" />
+            <result property="state" column="state" />
+            <result property="zip" column="zip" />
+            <result property="country" column="country" />
+        </association>
+    </resultMap>
+
+    <select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress3">
+        select stud_id,name,email,phone,dob,
+               a.addr_id,street,city,state,zip,country
+        from students s,addresses a
+        where s.addr_id = a.addr_id and stud_id = #{id}
+    </select> -->
+
+    <!--嵌套查询  -->
+    <!--address  -->
     <resultMap type="Address" id="addressResult">
         <id property="addrId" column="addr_id"/>
+        <result property="street" column="street" />
+        <result property="city" column="city" />
+        <result property="state" column="state" />
+        <result property="zip" column="zip" />
+        <result property="country" column="country" />
     </resultMap>
-    <!--课程resultMap  -->
-    <resultMap type="Course" id="CourseResult">
-        <id property="courseId" column="course_id"/>
-        <result property="startDate" column="start_date"/>
-        <result property="endDate" column="end_date"/>
-        <result property="name" column="name"/>
-        <result property="description" column="description"/>
-    </resultMap>
-    <!--1.通过讲师ID查找讲师数据-1条[tutor_id,addr_id]-讲师对象，配置关联关系的建立  -->
-    <select id="findTutorByIdWithCoursesA" parameterType="int" resultMap="TutorResultWithCsA">
-        select *
-        from tutors
-        where tutor_id = #{tutorId}
-    </select>
-    <!--2.通过讲师ID查找对应的课程，多条课程信息-集合对象  -->
-    <select id="findAllCoursesByTId" parameterType="int" resultMap="CourseResult">
-        select *
-        from courses
-        where tutor_id = #{tutorId}
-    </select>
-
-    <!--3.通过地址ID查找地址对象，一个地址对象  -->
+    <!--根据地址ID查找地址信息  -->
     <select id="findAddressById" parameterType="int" resultMap="addressResult">
-        select *
-        from addresses
-        where addr_id = #{addrId}
+        select * from addresses where addr_id = #{addrId}
+    </select>
+    <!--student<Address>  -->
+    <resultMap type="Student" id="StudentWithAddress4">
+        <id property="studId" column="stud_id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="dob" column="dob" />
+        <!--关联关系：has-one 要将符合resultMap为addressResult的值封装为Address对象，赋值给声明的property
+            Student.address
+          -->
+        <association property="address" column="addr_id" select="findAddressById"></association>
+    </resultMap>
+    <select id="findStudentByIdWithAddress" parameterType="int" resultMap="StudentWithAddress4">
+        select * from students where stud_id = #{studId}
     </select>
 
 
-    <!--**************************************************************-->
-    <!--多对多映射-->
-    <insert id="insertAddress" parameterType="address">
+    <!--添加地址  -->
+    <insert id="insertAddress" parameterType="Address">
         <selectKey keyProperty="addrId" resultType="int" order="BEFORE">
             select my_seq.nextval from dual
         </selectKey>
         insert into addresses
-        values (#{addrId},#{street}, #{city}, #{state}, #{zip}, #{country})
+        values(#{addrId},#{street},#{city},#{state},#{zip},#{country})
     </insert>
-
-    <!--填加学生-->
+    <!--添加学生  -->
     <insert id="insertStudent" parameterType="Student">
         <selectKey keyProperty="studId" resultType="int" order="BEFORE">
             select my_seq.nextval from dual
         </selectKey>
         insert into students
-        values (#{studId},#{name}, #{email},  #{dob},#{phone}, #{address.addrId})
+        values(#{studId},#{name},#{email},#{dob},#{phone},#{address.addrId})
     </insert>
-
-
-
-
-    
-
 </mapper>

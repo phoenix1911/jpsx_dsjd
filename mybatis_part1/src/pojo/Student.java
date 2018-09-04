@@ -14,7 +14,9 @@ public class Student extends Many2Many.Student implements Comparable<Student>{
 	//测试一对一映射
 	private Address address;
 
-	public Address getAddress() {
+
+
+    public Address getAddress() {
 		return address;
 	}
 
@@ -95,6 +97,14 @@ public class Student extends Many2Many.Student implements Comparable<Student>{
 
 	public Student(int studId, String name, String email, Date dob, PhoneNumber phone) {
 		this.studId = studId;
+		this.name = name;
+		this.email = email;
+		this.dob = dob;
+		this.phone = phone;
+	}
+	public Student( String name, String email, Date dob, PhoneNumber phone,Address address) {
+
+		this.address = address;
 		this.name = name;
 		this.email = email;
 		this.dob = dob;

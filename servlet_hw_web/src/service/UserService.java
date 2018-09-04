@@ -2,6 +2,9 @@ package service;
 
 import bean.User;
 import dao.UserDao;
+import dao.UserDaoMapper;
+import org.apache.ibatis.session.SqlSession;
+import util.SqlSessionFactoryUtil;
 
 import java.util.Random;
 
@@ -14,9 +17,14 @@ public class UserService {
     //登陆
     public Boolean login(String username, String password) {
         //和数据库数据进行比对
-        UserDao userDao = new UserDao();
-        User user = userDao.selectByUsername(username);
+//        UserDao userDao = new UserDao();
+//        User user = userDao.selectByUsername(username);
+//        System.out.println(user);
+
+        UserDaoMapper mapper = SqlSessionFactoryUtil.getSqlSession(true).getMapper(UserDaoMapper.class);
+        User user = mapper.selectUserByUserName(username);
         System.out.println(user);
+
         if (user!=null){
             if (password.equals(user.getPassword())) {
                 return true;
@@ -26,14 +34,15 @@ public class UserService {
     }
 
     //注册
-    public Boolean register(String username, String password, String phone) {
-        UserDao userdao = new UserDao();
+    public Boolean register(String username,String password,String phone) {
+        SqlSession sqlSession = SqlSessionFactoryUtil.getSqlSession(true);
+        UserDaoMapper mapper = sqlSession.getMapper(UserDaoMapper.class);
         Random random = new Random();
         int i = random.nextInt(100);
+
         User user2 = new User(i,username,password,phone);
-        System.out.println("UserService register() :"+user2);
-        userdao.insertUser(user2);
-        return  true;
+        mapper.insertUser(user2);
+        return true;
     }
 
 

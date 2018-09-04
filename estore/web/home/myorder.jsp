@@ -160,7 +160,7 @@
 			<!-- ******************************************************* -->
 
 			<c:forEach items="${ol.books}" var="b">
-				<c:forEach items="${ol.orderlines}" var="o">
+				<%--<c:forEach items="${ol.orderlines}" var="o">--%>
 			<tr>
 
 				<td><img src="home/public/img/2.png" alt=""></td>
@@ -168,11 +168,11 @@
 				<td>${b.name}</td>
 				<td>${b.price}</td>
 
-				<td>${o.onumber}</td>
+				<td>3</td>
 				<td>小计</td>
 
 			</tr>
-				</c:forEach>
+				<%--</c:forEach>--%>
 			</c:forEach>
 
 

@@ -4,8 +4,8 @@
 <!-- com.briup.mappers.StudentMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
 <mapper namespace="mappers.One2ManyMapper">
 
-    <!--嵌套结果的形式-->
-    <!--address-->
+    <!--嵌套结果的形式
+    &lt;!&ndash;address&ndash;&gt;
     <resultMap id="addressResult" type="Address">
         <id property="addrId" column="aid"/>
         <result property="street" column="street"/>
@@ -14,7 +14,7 @@
         <result property="zip" column="zip"/>
         <result property="country" column="country"/>
     </resultMap>
-    <!--course-->
+    &lt;!&ndash;course&ndash;&gt;
     <resultMap id="courseResult" type="Course">
         <id property="courseId" column="id"/>
         <result property="name" column="cname"/>
@@ -22,15 +22,15 @@
         <result property="startDate" column="start_date"/>
         <result property="endDate" column="end_date"/>
     </resultMap>
-    <!--嵌套结果的tutor-->
+    &lt;!&ndash;嵌套结果的tutor&ndash;&gt;
     <resultMap id="tutorWithCoursesA" type="Tutor">
         <id property="tutorId" column="tid"/>
         <result property="name" column="tname"/>
         <result property="email" column="email"/>
         <result property="phone" column="phone"/>
-        <!--有一个对象:1    pojo对象-->
+        &lt;!&ndash;有一个对象:1    pojo对象&ndash;&gt;
         <association property="address" resultMap="addressResult"/>
-        <!--有一些对象:n-->
+        &lt;!&ndash;有一些对象:n&ndash;&gt;
         <collection property="courses" resultMap="courseResult"/>
     </resultMap>
     <select id="findTutorByIdWithCoursesA" parameterType="int" resultMap="tutorWithCoursesA">
@@ -40,6 +40,55 @@
         from TUTORS t,COURSES c,ADDRESSES a
         where t.TUTOR_ID = c.TUTOR_ID and t.ADDR_ID = a.ADDR_ID and t.TUTOR_ID = #{tutorId}
     </select>
+-->
+    <!--嵌套结果  -->
+    <!--1.连接查询3张表中的所有记录，这些记录[1条讲师记录，1条地址记录，多条课程记录]
+           能够形成一个讲师对象，一个地址对象，一个集合中存放课程的对象。配置对象之间的关联关系  -->
+
+<!--*********************************************************************************************************-->
+
+    <!--嵌套查询  -->
+    <!--讲师的resultMap  -->
+    <resultMap type="Tutor" id="TutorResultWithCsA">
+        <id property="tutorId" column="tutor_id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <association property="address" column="addr_id" select="findAddressById"></association>
+        <collection property="courses" column="tutor_id" select="findAllCoursesByTId"></collection>
+    </resultMap>
+    <!--地址resultMap  -->
+    <resultMap type="Address" id="addressResult">
+        <id property="addrId" column="addr_id"/>
+    </resultMap>
+    <!--课程resultMap  -->
+    <resultMap type="Course" id="CourseResult">
+        <id property="courseId" column="course_id"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+    </resultMap>
+    <!--1.通过讲师ID查找讲师数据-1条[tutor_id,addr_id]-讲师对象，配置关联关系的建立  -->
+    <select id="findTutorByIdWithCoursesA" parameterType="int" resultMap="TutorResultWithCsA">
+        select *
+        from tutors
+        where tutor_id = #{tutorId}
+    </select>
+    <!--2.通过讲师ID查找对应的课程，多条课程信息-集合对象  -->
+    <select id="findAllCoursesByTId" parameterType="int" resultMap="CourseResult">
+        select *
+        from courses
+        where tutor_id = #{tutorId}
+    </select>
+
+    <!--3.通过地址ID查找地址对象，一个地址对象  -->
+    <select id="findAddressById" parameterType="int" resultMap="addressResult">
+        select *
+        from addresses
+        where addr_id = #{addrId}
+    </select>
+
 
 
 

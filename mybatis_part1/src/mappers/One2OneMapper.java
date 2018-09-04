@@ -8,6 +8,7 @@ import pojo.Student;
  */
 public interface One2OneMapper {
 
+    //查询学生信息，要求携带地址
     public Student findStudentByIdWithAddress(Integer id);
 
     public void insertAddress(Address address);

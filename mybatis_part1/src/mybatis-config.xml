@@ -14,6 +14,7 @@
 		<!--<typeAlias type="pojo.Student" alias="Student" />-->
         <!--给包下所有类起别名 默认小写类名-->
         <package name="pojo"/>
+		<package name="special"/>
 	</typeAliases>
 
     <!--自定义类型处理器-->

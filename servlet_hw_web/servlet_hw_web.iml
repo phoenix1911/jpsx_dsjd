@@ -32,5 +32,18 @@
         <jarDirectory url="file://$MODULE_DIR$/web/WEB-INF/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../mybatis_part3/lib/ojdbc14.jar!/" />
+          <root url="jar://$MODULE_DIR$/../mybatis_part3/lib/junit-4.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/../mybatis_part3/lib/dom4j-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../mybatis_part3/lib/log4j-1.2.17.jar!/" />
+          <root url="jar://$MODULE_DIR$/../mybatis_part3/lib/mybatis-3.3.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -60,6 +60,11 @@ public class Course {
         this.students = students;
     }
 
+    public Course(String courseCode, String courseName) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+    }
+
     public Course() {
     }
 }

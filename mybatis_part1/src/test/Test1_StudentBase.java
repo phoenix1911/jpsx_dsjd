@@ -34,7 +34,7 @@ public class Test1_StudentBase {
         //获取映射接口的实现类对象 ,获取到了Dao层对象
             StudentMapper mapper = session.getMapper(StudentMapper.class);
 
-            Student student = new Student(99, "九九", "123@qq.com", new Date());
+            Student student = new Student(999, "九九", "123@qq.com", new Date());
             mapper.insertStudent(student);
             session.commit();
 
@@ -102,7 +102,7 @@ public class Test1_StudentBase {
             StudentMapper mapper = session.getMapper(StudentMapper.class);
 
             PhoneNumber phone = new PhoneNumber("100", "101", "102");
-            Student student = new Student(96, "withphone", "12@qq.com", new Date(), phone);
+            Student student = new Student(998, "withphone", "12@qq.com", new Date(), phone);
 
         mapper.insertStudentWithPhone(student);
 

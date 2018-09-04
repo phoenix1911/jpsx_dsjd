@@ -1,6 +1,6 @@
 package mappers;
 
-import Many2Many.Course;
+import pojo.Course;
 
 import java.util.List;
 import java.util.Map;
@@ -13,5 +13,5 @@ public interface DynamicMapper {
     List<Course> searchCourses(Map<String,Object> map);
 
     //更新课程信息
-    public void update(Course course);
+    public void updateCourses(Course course);
 }

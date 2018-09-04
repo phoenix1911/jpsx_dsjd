@@ -8,6 +8,17 @@ import java.util.List;
 public class Student {
     private Integer id;
     private String name; // 姓名
+    private String gender; // 性别
+    private String major; // 专业
+    private String grade; // 年级
+    private List<Course> courses;// 所选的课程
+
+    public Student(String name, String gender, String major, String grade) {
+        this.name = name;
+        this.gender = gender;
+        this.major = major;
+        this.grade = grade;
+    }
 
     @Override
     public String toString() {
@@ -81,8 +92,5 @@ public class Student {
     public Student() {
     }
 
-    private String gender; // 性别
-    private String major; // 专业
-    private String grade; // 年级
-    private List<Course> courses;// 所选的课程
+
 }
