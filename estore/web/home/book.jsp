@@ -27,7 +27,7 @@
 			/*******************************************************/
 			/*********************《修改区域》**********************/
 			/*******************************************************/
-			var url = "shopcart?id=" + id + "&num=" + num;
+			var url = "joinServlet.servlet?id=" + id + "&num=" + num;
 			/*******************************************************/
 			/*******************************************************/
 
@@ -66,7 +66,7 @@
 	<div class="header3">
 		<!-- ******************************************************* -->
 		<!-- 此处需要改链接 -->
-		<a href="index.jsp"><img src="home/public/img/logo.png"></a>
+		<a href="home/index.jsp"><img src="home/public/img/logo.png"></a>
 		<!-- ******************************************************* -->
 		<div class="h3_center">
 			<div class="search_box">
@@ -96,7 +96,7 @@
 			<div class="tsc">
 				<!-- ******************************************************* -->
 				<!-- 此处需要改链接 -->
-				<a href="shopcart.html">去购物车结算</a>
+				<a href="">去购物车结算</a>
 				<!-- ******************************************************* -->
 				<span class="sj_right"> </span>
 			</div>
@@ -211,7 +211,7 @@
 							加入购物车，跳转到上面的js代码中，addShopCart()函数中，
 							参数是 编号
 						 -->
-						<div class="pro_addshop"><a href="javascript:void(0)" onclick="addShopCart(1)" style="color:#fff;">加入购物车 </a></div>
+						<div class="pro_addshop"><a href="javascript:void(0)" onclick="addShopCart(${sessionScope.bookinfo.id})" style="color:#fff;">加入购物车 </a></div>
 						<!-- ******************************************************* -->
 
 					</div>

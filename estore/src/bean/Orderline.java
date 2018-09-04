@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.List;
+
 /**
  * Created by Tjl on 2018/8/31 8:47.
  */
@@ -9,6 +11,22 @@ public class Orderline {
     private int orderid;
     private int onumber;
 
+    public Orderline(int bookid, int orderid, int onumber) {
+        this.bookid = bookid;
+        this.orderid = orderid;
+        this.onumber = onumber;
+    }
+
+    private Address address;
+
+    public Orderline(int bookid, int orderid, int onumber, Address address, List<Order> orders) {
+        this.bookid = bookid;
+        this.orderid = orderid;
+        this.onumber = onumber;
+        this.address = address;
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Orderline{" +
@@ -16,7 +34,36 @@ public class Orderline {
                 ", bookid=" + bookid +
                 ", orderid=" + orderid +
                 ", onumber=" + onumber +
+                ", address=" + address +
+                ", orders=" + orders +
                 '}';
+    }
+
+    private List<Order> orders;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Orderline(int id, int bookid, int orderid, int onumber, Address address, List<Order> orders) {
+        this.id = id;
+        this.bookid = bookid;
+        this.orderid = orderid;
+        this.onumber = onumber;
+        this.address = address;
+        this.orders = orders;
     }
 
     public int getId() {

@@ -6,6 +6,14 @@ package bean;
 public class Address {
     private int id;
     private int userid;
+
+    public Address(int userid, String name, String phone, String info) {
+        this.userid = userid;
+        this.name = name;
+        this.phone = phone;
+        this.info = info;
+    }
+
     private String name;
     private String phone;
     private String info;

@@ -50,7 +50,7 @@
 	<div class="header3">
 		<!-- ******************************************************* -->
 		<!-- 此处需要改链接 -->
-		<a href="index.jsp"><img src="home/public/img/logo.png"></a>
+		<a href="home/index.jsp"><img src="home/public/img/logo.png"></a>
 		<!-- ******************************************************* -->
 		<div class="h3_center">
 			<div class="search_box">
@@ -130,8 +130,20 @@
 		<!-- **************** 循环查询出所有的订单 ***************** -->
 		<!-- ******************************************************* -->
 		<table border="1">
+
 			<tr style="background:#eee">
-				<th colspan="5">订单编号：1011&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：23.43&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间：XX年XX月XX日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态：未发货</th>
+				<c:forEach items="${sessionScope.orderinfos}" var="ol">
+				<th colspan="5">订单编号：${ol.orderid}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：${ol.orders.total}元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间：${ol.orders.date}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					状态：
+					<c:choose>
+						<c:when test="${ol.orders.state==1}">未发货</c:when>
+						<c:when test="${ol.orders.state==2}">已发货</c:when>
+						<c:when test="${ol.orders.state==3}">废单</c:when>
+
+						<c:otherwise>其他</c:otherwise>
+					</c:choose></th>
+
+
 			</tr>
 			<tr>
 				<th width="100px">图片</th>
@@ -146,68 +158,34 @@
 			<!-- *********************《修改区域》********************** -->
 			<!-- *************** 循环查询出所有的订单行 **************** -->
 			<!-- ******************************************************* -->
+
+			<c:forEach items="${ol.books}" var="b">
+				<c:forEach items="${ol.orderlines}" var="o">
 			<tr>
+
 				<td><img src="home/public/img/2.png" alt=""></td>
-				<td>JAVA虚拟机</td>
-				<td>12.43</td>
-				<td>2</td>
-				<td>24.86</td>
+
+				<td>${b.name}</td>
+				<td>${b.price}</td>
+
+				<td>${o.onumber}</td>
+				<td>小计</td>
+
 			</tr>
-			<tr>
-				<td><img src="home/public/img/2.png" alt=""></td>
-				<td>JAVA虚拟机</td>
-				<td>12.43</td>
-				<td>2</td>
-				<td>24.86</td>
-			</tr>
+				</c:forEach>
+			</c:forEach>
+
+
+
 			<!-- ******************************************************* -->
 			<!-- ******************************************************* -->
 			<tr style="background:#ccc">
-				<th colspan="5">收货信息：山西省太原市万柏林区XXX街道XXX小区XXX号（briup收）12345678901 </th>
+				<th colspan="5">收货信息：${ol.address.info}（${ol.address.name}收）${ol.address.phone} </th>
 			</tr>
-
+			</c:forEach>
 		</table>
 
-		<table border="1">
-			<tr style="background:#eee">
-				<th colspan="5">订单编号：1011&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：23.43&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间：XX年XX月XX日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;状态：未发货</th>
-			</tr>
-			<tr>
-				<th width="100px">图片</th>
-				<th>书名</th>
-				<th>价格</th>
-				<th>数量</th>
-				<th>小计</th>
-			</tr>
 
-			<!-- ******************************************************* -->
-			<!-- ******************************************************* -->
-			<!-- *********************《修改区域》********************** -->
-			<!-- *************** 循环查询出所有的订单行 **************** -->
-			<!-- ******************************************************* -->
-			<tr>
-				<td><img src="home/public/img/2.png" alt=""></td>
-				<td>JAVA虚拟机</td>
-				<td>12.43</td>
-				<td>2</td>
-				<td>24.86</td>
-			</tr>
-			<tr>
-				<td><img src="home/public/img/2.png" alt=""></td>
-				<td>JAVA虚拟机</td>
-				<td>12.43</td>
-				<td>2</td>
-				<td>24.86</td>
-			</tr>
-			<!-- ******************************************************* -->
-			<!-- ******************************************************* -->
-			<tr style="background:#ccc">
-				<th colspan="5">收货信息：山西省太原市万柏林区XXX街道XXX小区XXX号（briup收）12345678901 </th>
-			</tr>
-
-		</table>
-		<!-- ******************************************************* -->
-		<!-- ******************************************************* -->
 		
 	</div>
 

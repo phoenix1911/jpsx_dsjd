@@ -56,7 +56,7 @@
 	<div class="header3">
 		<!-- ******************************************************* -->
 		<!-- 此处需要改链接 -->
-		<a href="index.jsp"><img src="home/public/img/logo.png"></a>
+		<a href="home/index.jsp"><img src="home/public/img/logo.png"></a>
 		<!-- ******************************************************* -->
 		<div class="h3_center">
 			<div class="search_box">

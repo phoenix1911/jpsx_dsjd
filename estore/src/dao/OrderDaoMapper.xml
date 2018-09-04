@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="dao.OrderDaoMapper">
+
+
+    <insert id="insertOrder">
+
+        insert into E_ORDER values (#{id},#{userid},#{addressid},#{total},#{date},#{state})
+    </insert>
+
+    <select id="selectOrderIdByDate" resultType="int">
+        select ID from E_ORDER where ODATE=#{date}
+    </select>
+
+    <select id="selectSEQ_Order" resultType="int" >
+        select SEQ_EORDERID.nextval from dual
+    </select>
+</mapper>

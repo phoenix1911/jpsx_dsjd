@@ -1,5 +1,4 @@
-﻿
-<%@ page language="java" contentType="text/html; charset=utf-8"
+﻿<%@ page language="java" contentType="text/html; charset=utf-8"
 		 pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
@@ -34,7 +33,7 @@
 			<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
 			<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
 		</ul>
-		********************************************* -->
+
 
 	</div>
 </div>
@@ -43,7 +42,7 @@
 		
 		<!-- ******************************************************* -->
 		<!-- 这里需要修改链接 -->
-		<a href="index.jsp"><img src="home/public/img/logo.png" class="oneImg"></a>
+		<a href="home/index.jsp"><img src="home/public/img/logo.png" class="oneImg"></a>
 		<!-- ******************************************************* -->
 
 		<div class="h3_right">
@@ -74,84 +73,79 @@
 				<div class="aa">
 					<span id="but">自营</span>
 				</div>
+				<c:forEach items="${sessionScope.shopcart}"  var="shopcart">
+				<div class="bb" id="shopcart${shopcart.key}">
 
-				<!-- ******************************************************* -->
-				<!-- ******************************************************* -->
-				<!-- *********************《修改区域》********************** -->
-				<!-- ********** 循环查询出购物车中所有的购物车行 *********** -->
-				<!-- ******************************************************* -->
-				<!-- 购物车行（开始） -->
-				<!-- 注意这里的id是 shopcart+id -->
-				<div class="bb" id="shopcart1">
 					<script>
-						// 点击 + 和 - 触发的事件
-						$(function() {
+                        // 点击 + 和 - 触发的事件
+                        $(function() {
 
-							// 以下只修改 #shopcart1 这个地方即可，其余不要动
-							// 注意 #shopcart1 代表 #shopcart+id，此时id为1
-							/*******************************************************/
-							/********************《可修改区域》*********************/
-							/*******************************************************/
-							var id = "#shopcart1";
-							var suburl = "subServlet";  // 点击“-”的Servlet
-							var addurl = "addServlet";  // 点击“+”的Servlet
-							/*******************************************************/
-							/*******************************************************/
+                            // 以下只修改 #shopcart1 这个地方即可，其余不要动
+                            // 注意 #shopcart1 代表 #shopcart+id，此时id为1
+                            /*******************************************************/
+                            /********************《可修改区域》*********************/
+                            /*******************************************************/
+                            var id = "#shopcart${shopcart.key}";
+                            var suburl = "subServlet.servlet";  // 点击“-”的Servlet
+                            var addurl = "addServlet.servlet";  // 点击“+”的Servlet
+                            /*******************************************************/
+                            /*******************************************************/
 
-							var input = $(id+' .num').val();
-							var price = $(id+' .mm').text().split("¥")[1];
-							$(id+' .ri').text('¥'+(price*input));
-							// 减的事件
-							$(id+' .sub').click(function() {
-								if (input > 1) {
-									input --;
-								}
-								// 数量
-								$(id+' .num').val(input);
-								// 小计
-								$(id+' .ri').text('¥'+(price*input).toFixed(2));
+                            var input = $(id+' .num').val();
+                            var price = $(id+' .mm').text().split("¥")[1];
+                            $(id+' .ri').text('¥'+(price*input));
+                            // 减的事件
+                            $(id+' .sub').click(function() {
+                                if (input > 1) {
+                                    input --;
+                                }
+                                // 数量
+                                $(id+' .num').val(input);
+                                // 小计
+                                $(id+' .ri').text('¥'+(price*input).toFixed(2));
 
-								// 用来保存总金额
-								var sum = 0;
+                                // 用来保存总金额
+                                var sum = 0;
 
-								// 遍历每行的小计
-								$('.ri').each(function(i) {
-									sum = sum + Number($('.ri').eq(i).text().split("¥")[1]);
-								});
-								// 总价钱
-								$('#total').text('¥'+sum+'元');
-								window.location = suburl + "?id=${bean.id}&num=" + input;
+                                // 遍历每行的小计
+                                $('.ri').each(function(i) {
+                                    sum = sum + Number($('.ri').eq(i).text().split("¥")[1]);
+                                });
+                                // 总价钱
+                                $('#total').text('¥'+sum+'元');
+                                window.location = suburl + "?id=${shopcart.key}&num=" + input;
 
-							});
-							// 加的事件
-							$(id+' .add').click(function() {
-								if (input < 99) {
-									input ++;
-								}
-								// 数量
-								$(id+' .num').val(input);
-								// 小刘
-								$(id+' .ri').text('¥'+(price*input));
+                            });
+                            // 加的事件
+                            $(id+' .add').click(function() {
+                                if (input < 99) {
+                                    input ++;
+                                }
+                                // 数量
+                                $(id+' .num').val(input);
+                                // 小刘
+                                $(id+' .ri').text('¥'+(price*input));
 
-								// 用来保存总金额
-								var sum = 0;
+                                // 用来保存总金额
+                                var sum = 0;
 
-								// 遍历每行的小计
-								$('.ri').each(function(i) {
-									sum = sum + Number($('.ri').eq(i).text().split("¥")[1]);
-								});
-								// 总价钱
-								$('#total').text('¥'+sum+'元');
-								window.location = addurl + "?id=${bean.id}&num=" + input;
-							});
-						});
+                                // 遍历每行的小计
+                                $('.ri').each(function(i) {
+                                    sum = sum + Number($('.ri').eq(i).text().split("¥")[1]);
+                                });
+                                // 总价钱
+                                $('#total').text('¥'+sum+'元');
+                                window.location = addurl + "?id=${shopcart.key}&num=" + input;
+                            });
+                        });
 					</script>
 					<img src="home/public/img/1.png" >
 
 					<!-- ******************************************************* -->
 					<!-- 书名，此处需要修改 -->
 					<span>
-						Effective JAVA
+						${shopcart.key}
+						${shopcart.value.book.name}
 						<br>
 					</span>
 					<!-- ******************************************************* -->
@@ -159,235 +153,26 @@
 					<!-- ******************************************************* -->
 					<!-- 价格，此处需要修改 -->
 					<div class="mm">
-						<span>¥66.00</span>
+						<span>¥${shopcart.value.book.price}</span>
 					</div>
 					<!-- ******************************************************* -->
 
 					<!-- 数量 -->
 					<div class="cartnum">
 			            <div class="sub">-</div>
-			            <div><input type="text" name="" class="num" value="1" readonly></div>
+			            <div><input type="text" name="" class="num" value="${shopcart.value.number}" readonly></div>
 			            <div class="add">+</div>
 			            <div class="clear"></div>
 			        </div>
-					
+
+
 					<div class="ri"></div>
+
 					<div class="righ">
 						 <div class="rig"><a href="">删除</a></div>
 					</div>
 				</div>
-				<!-- 购物车行（结束） -->
-				<!-- ******************************************************* -->
-				<!-- ******************************************************* -->
-
-
-				<!-- ******************************************************* -->
-				<!-- ******************************************************* -->
-				<!-- *********************《修改区域》********************** -->
-				<!-- ********** 循环查询出购物车中所有的购物车行 *********** -->
-				<!-- ******************************************************* -->
-				<!-- 购物车行（开始） -->
-				<!-- 注意这里的id是 shopcart+id -->
-				<div class="bb" id="shopcart1">
-					<script>
-						// 点击 + 和 - 触发的事件
-						$(function() {
-
-							// 以下只修改 #shopcart1 这个地方即可，其余不要动
-							// 注意 #shopcart1 代表 #shopcart+id，此时id为1
-							/*******************************************************/
-							/********************《可修改区域》*********************/
-							/*******************************************************/
-							var id = "#shopcart1";
-							var suburl = "subServlet";  // 点击“-”的Servlet
-							var addurl = "addServlet";  // 点击“+”的Servlet
-							/*******************************************************/
-							/*******************************************************/
-
-							var input = $(id+' .num').val();
-							var price = $(id+' .mm').text().split("¥")[1];
-							$(id+' .ri').text('¥'+(price*input));
-							// 减的事件
-							$(id+' .sub').click(function() {
-								if (input > 1) {
-									input --;
-								}
-								// 数量
-								$(id+' .num').val(input);
-								// 小计
-								$(id+' .ri').text('¥'+(price*input).toFixed(2));
-
-								// 用来保存总金额
-								var sum = 0;
-
-								// 遍历每行的小计
-								$('.ri').each(function(i) {
-									sum = sum + Number($('.ri').eq(i).text().split("¥")[1]);
-								});
-								// 总价钱
-								$('#total').text('¥'+sum+'元');
-								window.location = suburl + "?id=${bean.id}&num=" + input;
-
-							});
-							// 加的事件
-							$(id+' .add').click(function() {
-								if (input < 99) {
-									input ++;
-								}
-								// 数量
-								$(id+' .num').val(input);
-								// 小刘
-								$(id+' .ri').text('¥'+(price*input));
-
-								// 用来保存总金额
-								var sum = 0;
-
-								// 遍历每行的小计
-								$('.ri').each(function(i) {
-									sum = sum + Number($('.ri').eq(i).text().split("¥")[1]);
-								});
-								// 总价钱
-								$('#total').text('¥'+sum+'元');
-								window.location = addurl + "?id=${bean.id}&num=" + input;
-							});
-						});
-					</script>
-					<img src="home/public/img/1.png" >
-
-					<!-- ******************************************************* -->
-					<!-- 书名，此处需要修改 -->
-					<span>
-						Effective JAVA
-						<br>
-					</span>
-					<!-- ******************************************************* -->
-
-					<!-- ******************************************************* -->
-					<!-- 价格，此处需要修改 -->
-					<div class="mm">
-						<span>¥66.00</span>
-					</div>
-					<!-- ******************************************************* -->
-
-					<!-- 数量 -->
-					<div class="cartnum">
-			            <div class="sub">-</div>
-			            <div><input type="text" name="" class="num" value="1" readonly></div>
-			            <div class="add">+</div>
-			            <div class="clear"></div>
-			        </div>
-					
-					<div class="ri"></div>
-					<div class="righ">
-						 <div class="rig"><a href="">删除</a></div>
-					</div>
-				</div>
-				<!-- 购物车行（结束） -->
-				<!-- ******************************************************* -->
-				<!-- ******************************************************* -->
-
-
-				<!-- ******************************************************* -->
-				<!-- ******************************************************* -->
-				<!-- *********************《修改区域》********************** -->
-				<!-- ********** 循环查询出购物车中所有的购物车行 *********** -->
-				<!-- ******************************************************* -->
-				<!-- 购物车行（开始） -->
-				<!-- 注意这里的id是 shopcart+id -->
-				<div class="bb" id="shopcart1">
-					<script>
-						// 点击 + 和 - 触发的事件
-						$(function() {
-
-							// 以下只修改 #shopcart1 这个地方即可，其余不要动
-							// 注意 #shopcart1 代表 #shopcart+id，此时id为1
-							/*******************************************************/
-							/********************《可修改区域》*********************/
-							/*******************************************************/
-							var id = "#shopcart1";
-							var suburl = "subServlet";  // 点击“-”的Servlet
-							var addurl = "addServlet";  // 点击“+”的Servlet
-							/*******************************************************/
-							/*******************************************************/
-
-							var input = $(id+' .num').val();
-							var price = $(id+' .mm').text().split("¥")[1];
-							$(id+' .ri').text('¥'+(price*input));
-							// 减的事件
-							$(id+' .sub').click(function() {
-								if (input > 1) {
-									input --;
-								}
-								// 数量
-								$(id+' .num').val(input);
-								// 小计
-								$(id+' .ri').text('¥'+(price*input).toFixed(2));
-
-								// 用来保存总金额
-								var sum = 0;
-
-								// 遍历每行的小计
-								$('.ri').each(function(i) {
-									sum = sum + Number($('.ri').eq(i).text().split("¥")[1]);
-								});
-								// 总价钱
-								$('#total').text('¥'+sum+'元');
-								window.location = suburl + "?id=${bean.id}&num=" + input;
-
-							});
-							// 加的事件
-							$(id+' .add').click(function() {
-								if (input < 99) {
-									input ++;
-								}
-								// 数量
-								$(id+' .num').val(input);
-								// 小刘
-								$(id+' .ri').text('¥'+(price*input));
-
-								// 用来保存总金额
-								var sum = 0;
-
-								// 遍历每行的小计
-								$('.ri').each(function(i) {
-									sum = sum + Number($('.ri').eq(i).text().split("¥")[1]);
-								});
-								// 总价钱
-								$('#total').text('¥'+sum+'元');
-								window.location = addurl + "?id=${bean.id}&num=" + input;
-							});
-						});
-					</script>
-					<img src="home/public/img/1.png" >
-
-					<!-- ******************************************************* -->
-					<!-- 书名，此处需要修改 -->
-					<span>
-						Effective JAVA
-						<br>
-					</span>
-					<!-- ******************************************************* -->
-
-					<!-- ******************************************************* -->
-					<!-- 价格，此处需要修改 -->
-					<div class="mm">
-						<span>¥66.00</span>
-					</div>
-					<!-- ******************************************************* -->
-
-					<!-- 数量 -->
-					<div class="cartnum">
-			            <div class="sub">-</div>
-			            <div><input type="text" name="" class="num" value="1" readonly></div>
-			            <div class="add">+</div>
-			            <div class="clear"></div>
-			        </div>
-					
-					<div class="ri"></div>
-					<div class="righ">
-						 <div class="rig"><a href="">删除</a></div>
-					</div>
-				</div>
+				</c:forEach>
 				<div style="clear:both"></div>
 				<!-- 购物车行（结束） -->
 				<!-- ******************************************************* -->
@@ -400,7 +185,7 @@
 				<!-- ******************************************************* -->
 				<!-- ******************************************************* -->
 				<!-- 这里需要修改链接 -->
-				<p class="caozuo"> <a id="atotal" href="order.html">去结算</a> </p>
+				<p class="caozuo"> <a id="atotal" href="order.servlet">去结算</a> </p>
 				<!-- ******************************************************* -->
 				<!-- ******************************************************* -->
 

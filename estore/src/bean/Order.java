@@ -9,9 +9,26 @@ public class Order {
     private int id;
     private int userid;
     private int addressid;
+
+    public Order(int userid, int addressid, Double total, Date odate, int state) {
+        this.userid = userid;
+        this.addressid = addressid;
+        this.total = total;
+        this.odate = odate;
+        this.state = state;
+    }
+
     private Double total;
-    private Date date;
+    private Date odate;
     private int state;
+
+    public Date getOdate() {
+        return odate;
+    }
+
+    public void setOdate(Date odate) {
+        this.odate = odate;
+    }
 
     @Override
     public String toString() {
@@ -20,7 +37,7 @@ public class Order {
                 ", userid=" + userid +
                 ", addressid=" + addressid +
                 ", total=" + total +
-                ", date=" + date +
+                ", odate=" + odate +
                 ", state=" + state +
                 '}';
     }
@@ -58,11 +75,11 @@ public class Order {
     }
 
     public Date getDate() {
-        return date;
+        return odate;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.odate = odate;
     }
 
     public int getState() {
@@ -76,12 +93,12 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, int userid, int addressid, Double total, Date date, int state) {
+    public Order(int id, int userid, int addressid, Double total, Date odate, int state) {
         this.id = id;
         this.userid = userid;
         this.addressid = addressid;
         this.total = total;
-        this.date = date;
+        this.odate = odate;
         this.state = state;
     }
 }

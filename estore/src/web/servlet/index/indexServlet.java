@@ -2,6 +2,7 @@ package web.servlet.index;
 
 import bean.Book;
 import bean.Category;
+import bean.ShopcartLine;
 import service.BookService;
 import service.CategoryService;
 import service.serviceImpl.BookServiceImpl;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Tjl on 2018/8/31 9:49.
@@ -34,8 +37,12 @@ public class indexServlet extends HttpServlet {
         List<Book> books1 = bookService.selectRecommendedBooks();
         //获取最高销量3本
         List<Book> books2 = bookService.selectBestSeller3Books();
-        System.out.println(books1);
-        System.out.println(books2);
+
+        //初始化购物车
+        Map<Integer, ShopcartLine> shopcart= new HashMap();
+        //测试数据
+//        shopcart.put(1,new ShopcartLine(books2.get(0),3));
+
 
 
         HttpSession session = req.getSession();
@@ -43,6 +50,7 @@ public class indexServlet extends HttpServlet {
         session.setAttribute("row5Categoty", row5Category);
         session.setAttribute("recommendedBooks",books1);
         session.setAttribute("BestSeller3Books",books2);
+        session.setAttribute("shopcart",shopcart);
         req.getRequestDispatcher("home/index.jsp").forward(req, resp);
 
     }

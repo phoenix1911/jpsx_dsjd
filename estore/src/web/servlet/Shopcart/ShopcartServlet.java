@@ -4,6 +4,19 @@ package web.servlet.Shopcart;
  * Created by Tjl on 2018/9/1 8:40.
  */
 
+import bean.ShopcartLine;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * 1.获取参数id num
  * 2.根据id查询出对应得book对象
@@ -16,6 +29,26 @@ package web.servlet.Shopcart;
  * 9.更新session中的购物车
  * 10.跳转到shopcart.jsp
  */
-public class ShopcartServlet {
+@WebServlet("/shopcart.servlet")
+public class ShopcartServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        Map<Integer, ShopcartLine> shopcart = (Map<Integer, ShopcartLine>) session.getAttribute("shopcart");
+        if (shopcart == null) {
+            shopcart = new HashMap();
 
+        }
+        System.out.println(shopcart);
+        Set<Map.Entry<Integer, ShopcartLine>> entries = shopcart.entrySet();
+        for (Map.Entry<Integer,ShopcartLine> entry: entries) {
+            System.out.println(entry.getKey()+"::"+entry.getValue());
+        }
+        req.getRequestDispatcher("home/shopcart.jsp").forward(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
 }

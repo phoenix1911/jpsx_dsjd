@@ -1,18 +1,16 @@
-﻿
 <%@ page language="java" contentType="text/html; charset=utf-8"
-		 pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="utf-8"%>
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName()
-			+ ":" + request.getServerPort() + path + "/";
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() 
+            + ":" + request.getServerPort() + path + "/";
 %>
-<!doctype html>
-<html lang="en">
+<!-- HTML代码 -->
+<!DOCTYPE html>
+<html>
 <head>
-	<!-- 注意这里的 bese标签 要保留 -->
-	<base href="<%= basePath %>">
-	<meta charset="UTF-8">
+    <base href="<%= basePath %>">
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<title>结算页面</title>
 	<link rel="stylesheet" href="home/public/css/common.css"/>
 	<link rel="stylesheet" href="home/public/css/icons.css" />
@@ -34,37 +32,32 @@
 
 </head>
 <body>
-<!--顶部-->
-<div class="top">
-	<div class="top_center">
+	<!--顶部-->
+	<div class="top">
+		<div class="top_center">
+			<ul class="top_bars">
 
-		<ul class="top_bars">
-			<c:if test="${sessionScope.user!=null}">
-				<li><a href="Outlogin">退出</a> </li>
-			</c:if>
-			<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
-			<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
-		</ul>
-		<ul class="top_lr">
-			<c:if test="${sessionScope.user!=null}">
-				<li><a>欢迎 ${sessionScope.user.username}</a></li>
-			</c:if>
-			<c:if test="${sessionScope.user ==null}">
-				<li><a href="home/login.jsp" style="color: red;">亲,请登入</a></li>
-				<li><a href="home/register.jsp">免费注册</a></li>
-			</c:if>
-		</ul>
-		<!-- ******************************************************* -->
-		<!-- ******************************************************* -->
+				<!-- ******************************************************* -->
+				<!-- 此处需要改链接 -->
+				<li><a href="home/login.jsp">退出</a>|</li>
+				<!-- ******************************************************* -->
 
+				<!-- ******************************************************* -->
+				<!-- 此处需要改链接 -->
+				<li><a href="home/myorder.jsp">我的订单<span class="jt_down"></span></a>|</li>
+				<!-- ******************************************************* -->
+
+				<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
+				<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
+			</ul>
+		</div>
 	</div>
-</div>
-<!--头部-->
+	<!--头部-->
 	<div class="header3">
 
 		<!-- ******************************************************* -->
 		<!-- 此处需要改链接 -->
-		<a href="home/index.jsp"><img src="home/public/img/logo.png" class="oneImg"></a>
+		<a href="index"><img src="home/public/img/logo.png" class="oneImg"></a>
 		<!-- ******************************************************* -->
 
 		<div class="h3_right">
@@ -83,15 +76,13 @@
 				<!-- *********************《修改区域》********************** -->
 				<!-- *************** 循环读取所有地址表信息 **************** -->
 				<!-- ******************************************************* -->
-				<c:forEach items="${sessionScope.addresses}" var="addresses">
 				<p>
 					<!-- for和id的属性值是address表的id值 -->
-					<label for="${addresses.id}">
+					<label for="1">
 						<!-- 此处需要改链接 -->
-						<input class="address" type="radio" name="address" id="${addresses.id}">${addresses.info}（${addresses.name}收）${addresses.phone} <a href="deleteAddress.servlet?address=${addresses.id}">删除</a>
+						<input class="address" type="radio" name="address" id="1">山西省太原市万柏林区XXX街道XXX小区XXX号（briup收）12345678901 <a href="##">删除</a>
 					</label>
 				</p>
-				</c:forEach>
 				<!-- ******************************************************* -->
 				<!-- ******************************************************* -->
 
@@ -100,7 +91,13 @@
 				<!-- *********************《修改区域》********************** -->
 				<!-- *************** 循环读取所有地址表信息 **************** -->
 				<!-- ******************************************************* -->
-
+				<p>
+					<!-- for和id的属性值是address表的id值 -->
+					<label for="2">
+						<!-- 此处需要改链接 -->
+						<input class="address" type="radio" name="address" id="2">山西省太原市万柏林区XXX街道XXX小区XXX号（briup收）12345678901 <a href="##">删除</a>
+					</label>
+				</p>
 				<!-- ******************************************************* -->
 				<!-- ******************************************************* -->
 
@@ -110,7 +107,7 @@
 			<!-- 送货清单（开始） -->
 			<!-- ******************************************************* -->
 			<!-- 此处需要改链接 -->
-			<p class="singleP"><b>送货清单</b><span><a href="shopcart.servlet">返回修改购物车</a></span></p>
+			<p class="singleP"><b>送货清单</b><span><a href="home/shopcart.jsp">返回修改购物车</a></span></p>
 			<!-- ******************************************************* -->
 
 			<div class="bigDiv">
@@ -121,58 +118,78 @@
 					<!-- ************** 循环读取订单行中图书信息 *************** -->
 					<!-- ******************************************************* -->
 					<br>
-					<c:forEach items="${sessionScope.shopcart}"  var="shopcart">
 					<ul class="oneUL">
 						<li>
 							<img src="home/public/img/viewBook.png" class="pic">
-							<p>&nbsp;&nbsp;${shopcart.value.book.name}&nbsp;&nbsp;</p>
-							<p><font class="price">¥${shopcart.value.book.price}</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;×<b class="num">${shopcart.value.number}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有货</p>
+							<p>计算机&nbsp;&nbsp;JAVA&nbsp;&nbsp;Effective JAVA&nbsp;&nbsp;</p>
+							<p><font class="price">¥100169.00</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;×<b class="num">1</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有货</p>
 							<p><img src="home/public/img/sureLogo_14.png" alt=""><span>七天无理由退换货</span></p>
 
 						</li>
 						<li><pre>【赠品】  高级定制干花书签  随机  ×1</pre></li>
 					</ul>
-					</c:forEach>
+					<!-- ******************************************************* -->
+					<!-- ******************************************************* -->
 
+
+					<!-- ******************************************************* -->
+					<!-- ******************************************************* -->
+					<!-- *********************《修改区域》********************** -->
+					<!-- ************** 循环读取订单行中图书信息 *************** -->
+					<!-- ******************************************************* -->
+					<br>
+					<ul class="oneUL">
+						<li>
+							<!-- 此处需要修改name值，name值是书籍的编号 -->
+							<img name="${bean.value.book.id}" src="home/public/img/viewBook.png" class="pic">
+							<p>计算机&nbsp;&nbsp;JAVA&nbsp;&nbsp;Effective JAVA&nbsp;&nbsp;</p>
+							<p><font class="price">¥100169.00</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;×<b class="num">1</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有货</p>
+							<p><img src="home/public/img/sureLogo_14.png" alt=""><span>七天无理由退换货</span></p>
+
+						</li>
+						<li><pre>【赠品】  高级定制干花书签  随机  ×1</pre></li>
+					</ul>
+					<!-- ******************************************************* -->
+					<!-- ******************************************************* -->
 
 				</div>
 			</div>
 			<!-- 送货清单（结束） -->
 
 			<script>
-                $(function () {
-                    var sum = 0;
-                    for (var i = 0; i < $('.price').size(); i ++) {
-                        var price = Number($('.price').eq(i).text().split('¥')[1]);
-                        var num = Number($('.num').eq(i).text());
-                        sum = sum + (price * num);
-                    }
-                    $('#number').text($('.price').size());
-                    $('.total').text('¥'+sum.toFixed(2));
+				$(function () {
+					var sum = 0;
+					for (var i = 0; i < $('.price').size(); i ++) {
+						var price = Number($('.price').eq(i).text().split('¥')[1]);
+						var num = Number($('.num').eq(i).text());
+						sum = sum + (price * num);
+					}
+					$('#number').text($('.price').size());
+					$('.total').text('¥'+sum.toFixed(2));
 
-                    // 拼接“提交订单”的链接
-                    /* var sub = "?orderline="; */
-                    var submiturl = "insertOrder.servlet";
+					// 拼接“提交订单”的链接
+					var submiturl = "suborder";
+					//var sub = "?orderline=";
 
-                    /* $(".pic").each(function(i) {
-                        sub = sub + '|' + $('.pic').eq(i).attr('name');
-                    }); */
+					//$(".pic").each(function(i) {
+					//	sub = sub + '|' + $('.pic').eq(i).attr('name');
+					//});
 
-                    if ($('#suborder').attr('href').indexOf('addressid') == -1) {
-                        $('#suborder').attr('href','javascript:void(0)');
-                    }
+					if ($('#suborder').attr('href').indexOf('addressid') == -1) {
+						$('#suborder').attr('href','javascript:void(0)');
+					}
 
-                    $('.address').click(function () {
-                        var addressid = '?addressid=' + $(this).attr('id');
-                        $('#suborder').attr('href',submiturl + addressid+'&total='+sum);
-                    });
+					$('.address').click(function () {
+						var addressid = '?addressid=' + $(this).attr('id');
+						$('#suborder').attr('href',submiturl + addressid);
+					});
 
-                });
+				});
 			</script>
 			<div class="money">
 				<span><font id="number"></font>件商品，总商品金额：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b class="total">¥14699</b></span>
 				<span><img src="home/public/img/sureLogo_18.png" alt="">运费：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¥0.00</span>
-
+				
 			</div>
 			<div class="submit">
 				<span>应付金额：<font class="total">¥14699.00</font>
@@ -197,7 +214,7 @@
 				<!-- *********************《修改区域》********************** -->
 				<!-- ************* 此处为增加地址信息记录表单 ************** -->
 				<!-- ******************************************************* -->
-				<form class="info_list" action="insertAddress.servlet" method="method">
+				<form class="info_list" action="" method="method">
 					<ul>
 						<li><span class="name">收货人</span> <input name="name" type="text"
 							id="addr_name" value="" maxlength="20"></li>
@@ -221,7 +238,7 @@
 
 						<!-- ******************************************************* -->
 						<!-- 此处需要改链接 -->
-						<a href="order.html" id="cancelAdd" class="btn">返回</a>
+						<a href="home/order.jsp" id="cancelAdd" class="btn">返回</a>
 						<!-- ******************************************************* -->
 
 					</div>
@@ -298,6 +315,6 @@
 			<img src="home/public/img/police.png">
 		</div>
 	</div>
-
+  
 </body>
 </html>

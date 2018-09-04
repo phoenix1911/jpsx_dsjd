@@ -31,7 +31,7 @@
 			<div>
 				<!-- ******************************************************* -->
 				<!-- 此处需要改链接 -->
-				<a href="index.jsp"><img class="logo" src="home/public/img/logon_register.png"></a>
+				<a href="home/index.jsp"><img class="logo" src="home/public/img/logon_register.png"></a>
 				<!-- ******************************************************* -->
 			</div>
 			<div>

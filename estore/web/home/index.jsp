@@ -72,7 +72,7 @@
 			 </div>
 			<div class="tsc">
 				<!-- 此处需要改链接 -->
-				<a href="home/shopcart.jsp">去购物车结算</a>
+				<a href="shopcart.servlet">去购物车结算</a>
 				<span class="sj_right"> </span>
 			</div>
 		</div>
@@ -210,8 +210,6 @@
 								<c:when test="${book.categoryid==5 }">漫画类</c:when>
 								<c:when test="${book.categoryid==6 }">工具类</c:when>
 								<c:when test="${book.categoryid==7 }">期刊类</c:when>
-
-
 								<c:otherwise>其他</c:otherwise>
 							</c:choose>
 						</p>
