@@ -39,6 +39,9 @@
 			<c:if test="${sessionScope.user!=null}">
 				<li><a href="Outlogin">退出</a> </li>
 			</c:if>
+			<c:if test="${sessionScope.user!=null}">
+				<li><a href="showOrderline.servlet">查看我的订单</a></li>
+			</c:if>
 			<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
 			<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
 		</ul>
@@ -116,7 +119,7 @@
 		<div class="register_box">
 			<div class="head">
 				<!-- 此处需要改链接 -->
-				<h3><a href="userinfo.html">个人信息</a>&nbsp;&nbsp;&nbsp;修改密码</h3>
+				<h3><a href="home/userinfo.html">个人信息</a>&nbsp;&nbsp;&nbsp;修改密码</h3>
 			</div>
 			<div class="security">
 

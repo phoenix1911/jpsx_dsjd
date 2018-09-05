@@ -38,6 +38,9 @@
 			<c:if test="${sessionScope.user!=null}">
 				<li><a href="Outlogin">退出</a> </li>
 			</c:if>
+			<c:if test="${sessionScope.user!=null}">
+				<li><a href="showOrderline.servlet">查看我的订单</a></li>
+			</c:if>
 			<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
 			<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
 		</ul>
@@ -86,7 +89,7 @@
 			<div class="tsc">
 				<!-- ******************************************************* -->
 				<!-- 此处需要改链接 -->
-				<a href="shopcart.html">去购物车结算</a>
+				<a href="shopcart.servlet">去购物车结算</a>
 				<!-- ******************************************************* -->
 				<span class="sj_right"> </span>
 			</div>

@@ -2,6 +2,7 @@ package web.servlet.order;
 
 import bean.Address;
 import bean.ShopcartLine;
+import bean.User;
 import service.AddressService;
 import service.serviceImpl.AddressServiceImpl;
 
@@ -23,9 +24,12 @@ public class OrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AddressService addressService = new AddressServiceImpl();
-        List<Address> addresses = addressService.findallAddress();
-        System.out.println(addresses);
+//        List<Address> addresses = addressService.findallAddress();
         HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        int userId = user.getId();
+        List<Address> addresses = addressService.findAddressById(userId);
+        System.out.println(addresses);
         session.setAttribute("addresses",addresses);
         req.getRequestDispatcher("home/order.jsp").forward(req,resp);
 

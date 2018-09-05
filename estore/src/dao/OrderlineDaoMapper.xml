@@ -20,6 +20,10 @@
         select * from E_ORDER where ID=#{orderid}
     </select>
 
+    <select id="selectOrderByUserID" resultType="bean.Order">
+        select * from E_ORDER where USERID=#{userid}
+    </select>
+
     <select id="selectAddressByID" resultType="bean.Address">
         select * from E_ADDRESS where ID=#{addressId}
     </select>

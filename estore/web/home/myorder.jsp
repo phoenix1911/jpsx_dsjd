@@ -1,7 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8"
 		 pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>v
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName()
@@ -80,7 +81,7 @@
 			<div class="tsc">
 				<!-- ******************************************************* -->
 				<!-- 此处需要改链接 -->
-				<a href="shopcart.html">去购物车结算</a>
+				<a href="shopcart.servlet">去购物车结算</a>
 				<!-- ******************************************************* -->
 				<span class="sj_right"> </span>
 			</div>
@@ -133,7 +134,7 @@
 
 			<tr style="background:#eee">
 				<c:forEach items="${sessionScope.orderinfos}" var="ol">
-				<th colspan="5">订单编号：${ol.orderid}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：${ol.orders.total}元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间：${ol.orders.date}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<th colspan="5">订单编号：${ol.orderid}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总金额：${ol.orders.total}元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间：<fmt:formatDate value="${ol.orders.date}" pattern="yyyy年MM月dd日 HH:mm:ss"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					状态：
 					<c:choose>
 						<c:when test="${ol.orders.state==1}">未发货</c:when>
@@ -159,21 +160,22 @@
 			<!-- *************** 循环查询出所有的订单行 **************** -->
 			<!-- ******************************************************* -->
 
-			<c:forEach items="${ol.books}" var="b">
-				<%--<c:forEach items="${ol.orderlines}" var="o">--%>
-			<tr>
 
+				<c:forEach items="${ol.orderlines}" var="b">
+			<tr>
 				<td><img src="home/public/img/2.png" alt=""></td>
 
-				<td>${b.name}</td>
-				<td>${b.price}</td>
 
-				<td>3</td>
-				<td>小计</td>
+				<td>${b.book.name}</td>
+				<td>${b.book.price}</td>
+				<td>${b.onumber}</td>
+
+
+				<td>${b.book.price*b.onumber}</td>
 
 			</tr>
-				<%--</c:forEach>--%>
-			</c:forEach>
+				</c:forEach>
+
 
 
 

@@ -7,6 +7,31 @@ import java.util.List;
  */
 public class Orderline {
     private int id;
+
+    @Override
+    public String toString() {
+        return "Orderline{" +
+                "id=" + id +
+                ", bookid=" + bookid +
+                ", orderid=" + orderid +
+                ", onumber=" + onumber +
+                ", address=" + address +
+                ", book=" + book +
+                ", orders=" + orders +
+                '}';
+    }
+
+    public Orderline(int id, int bookid, int orderid, int onumber, Address address, List<Book> books, Book book, List<Order> orders) {
+        this.id = id;
+        this.bookid = bookid;
+        this.orderid = orderid;
+        this.onumber = onumber;
+        this.address = address;
+        this.books = books;
+        this.book = book;
+        this.orders = orders;
+    }
+
     private int bookid;
     private int orderid;
     private int onumber;
@@ -18,6 +43,24 @@ public class Orderline {
     }
 
     private Address address;
+    private List<Book> books;
+    private Book book;
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 
     public Orderline(int bookid, int orderid, int onumber, Address address, List<Order> orders) {
         this.bookid = bookid;
@@ -25,18 +68,6 @@ public class Orderline {
         this.onumber = onumber;
         this.address = address;
         this.orders = orders;
-    }
-
-    @Override
-    public String toString() {
-        return "Orderline{" +
-                "id=" + id +
-                ", bookid=" + bookid +
-                ", orderid=" + orderid +
-                ", onumber=" + onumber +
-                ", address=" + address +
-                ", orders=" + orders +
-                '}';
     }
 
     private List<Order> orders;

@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface AddressService {
     public List<Address> findallAddress();
+    public List<Address> findAddressById(int id);
 
     public void insertAddress(int userid,String name,String phone,String info);
 

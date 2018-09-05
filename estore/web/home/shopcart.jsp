@@ -30,8 +30,20 @@
 			<c:if test="${sessionScope.user!=null}">
 				<li><a href="Outlogin">退出</a> </li>
 			</c:if>
+			<c:if test="${sessionScope.user!=null}">
+				<li><a href="showOrderline.servlet">查看我的订单</a></li>
+			</c:if>
 			<li><a href="javascript:void(0)">关注杰普<span class="jt_down"></span></a>|</li>
 			<li><a href="javascript:void(0)">网站导航<span class="jt_down"></span></a></li>
+		</ul>
+		<ul class="top_lr">
+			<c:if test="${sessionScope.user!=null}">
+				<li><a>欢迎 ${sessionScope.user.username}</a></li>
+			</c:if>
+			<c:if test="${sessionScope.user ==null}">
+				<li><a href="home/login.jsp" style="color: red;">亲,请登入</a></li>
+				<li><a href="home/register.jsp">免费注册</a></li>
+			</c:if>
 		</ul>
 
 
@@ -169,7 +181,7 @@
 					<div class="ri"></div>
 
 					<div class="righ">
-						 <div class="rig"><a href="">删除</a></div>
+						 <div class="rig"><a href="deleteRowFromShopcart.servlet?bookid=${shopcart.key}">删除</a></div>
 					</div>
 				</div>
 				</c:forEach>
@@ -185,7 +197,7 @@
 				<!-- ******************************************************* -->
 				<!-- ******************************************************* -->
 				<!-- 这里需要修改链接 -->
-				<p class="caozuo"> <a id="atotal" href="order.servlet">去结算</a> </p>
+				<p class="caozuo"> <a id="atotal" href="order.servlet">结算</a> </p>
 				<!-- ******************************************************* -->
 				<!-- ******************************************************* -->
 

@@ -16,6 +16,8 @@ public interface OrderlineDaoMapper {
 
     List<Order> selectALlOrderByID(int orderid);
 
+    List<Order> selectOrderByUserID(int userid);
+
     Address selectAddressByID(int addressid);
 
     List<Orderline> selectALlOrderlineByID(int orderId);

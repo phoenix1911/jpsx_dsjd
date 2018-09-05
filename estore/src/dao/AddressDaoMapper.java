@@ -10,6 +10,8 @@ import java.util.List;
 public interface AddressDaoMapper {
     public List<Address> findAllAddress();
 
+    public List<Address> findAddressById(int userid);
+
     public void insertAddress(Address address);
 
     public void deleteAddress(int id);

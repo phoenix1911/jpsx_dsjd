@@ -9,6 +9,15 @@ public class Book {
     private String name;
     private Double price;
     private int state;
+    private int onumber;
+
+    public int getOnumber() {
+        return onumber;
+    }
+
+    public void setOnumber(int onumber) {
+        this.onumber = onumber;
+    }
 
     @Override
     public String toString() {

@@ -24,6 +24,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public List<Address> findAddressById(int id) {
+        return addressDaoMapper.findAddressById(id);
+    }
+
+    @Override
     public void insertAddress(int userId,String name, String phone, String info) {
         Address address = new Address(userId, name, phone, info);
         addressDaoMapper.insertAddress(address);

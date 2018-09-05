@@ -3,6 +3,7 @@ package web.servlet.orderline;
 import bean.*;
 import common.util.SqlSessionFactoryUtil;
 import dao.BookDaoMapper;
+import dao.OrderlineDaoMapper;
 import service.OrderlineService;
 import service.serviceImpl.OrderlineServiceImpl;
 
@@ -23,24 +24,40 @@ import java.util.List;
 public class showOrderline extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        System.out.println(user);
+        int userId = user.getId();
+
+
         OrderlineService orderlineService = new OrderlineServiceImpl();
         //1.获取所有的订单编号
 
         List<OrderInfo> orderinfos = new ArrayList<>();
 
-        List<Order> orders = orderlineService.selectAllOrder();
+//        List<Order> orders = orderlineService.selectAllOrder();
+        OrderlineDaoMapper mapper1 = SqlSessionFactoryUtil.getSqlSession(true).getMapper(OrderlineDaoMapper.class);
+        List<Order> orders = mapper1.selectOrderByUserID(userId);;
+
+
+
         List<Book> books =null;
-        BookDaoMapper mapper =mapper = SqlSessionFactoryUtil.getSqlSession(true).getMapper(BookDaoMapper.class);
+        BookDaoMapper mapper  = SqlSessionFactoryUtil.getSqlSession(true).getMapper(BookDaoMapper.class);
         List<Orderline> orderlineList =null;
         int orderId;
-        List<Order> os;
+
         Address address;
         OrderInfo orderInfo;
 
         for (Order order:orders) {
+
+
+
             orderId = order.getId();
-            os = orderlineService.selectALlOrderByID(orderId);
+
             address= orderlineService.selectAddressByID(order.getAddressid());
+
             //订单编号
             orderlineList = orderlineService.selectALlOrderlineByID(orderId);
 
@@ -50,15 +67,16 @@ public class showOrderline extends HttpServlet {
             for (Orderline orderline: orderlineList) {
                 int bookid = orderline.getBookid();
                 Book book = mapper.selectBookById(bookid);
-                books.add(book);
+                orderline.setBook(book);
             }
+
 
              orderInfo= new OrderInfo(orderId, address, order, orderlineList,books);
 
             orderinfos.add(orderInfo);
 
         }
-        HttpSession session = req.getSession();
+
         session.setAttribute("orderinfos",orderinfos);
         req.getRequestDispatcher("home/myorder.jsp").forward(req,resp);
     }
